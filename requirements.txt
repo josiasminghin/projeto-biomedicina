@@ -2,5 +2,6 @@ streamlit
 pandas
 scikit-learn
 numpy
-pip install -r requirements.txt
+
+
 
