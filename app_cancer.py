@@ -35,29 +35,28 @@ area_media = st.sidebar.slider("Área Nuclear", 140.0, 2500.0, 600.0, help="Méd
 smoothness = st.sidebar.slider("Suavidade (Smoothness)", 0.05, 0.25, 0.09)
 concavidade = st.sidebar.slider("Concavidade", 0.0, 0.5, 0.04, help="Ponto chave para malignidade")
 
-# --- 3. PREDIÇÃO (O Cálculo Inteligente) ---
+# --- 3. PREDIÇÃO (O Cálculo Inteligente - CORRIGIDO) ---
 
-# Ajuste Fino: Para a IA não ficar confusa com os valores zerados,
-# vamos vincular os campos invisíveis aos que você mexe nos sliders.
+# Ajuste Fino: Vinculamos os campos invisíveis aos que você mexe nos sliders.
+# Agora usando os nomes corretos das variáveis em português.
 
-# Estimativa baseada em correlação biológica:
-compactness = concavity       # Compactação geralmente acompanha a concavidade
-concave_points = concavity    # Pontos côncavos acompanham a concavidade
-fractal_dimension = 0.06      # Valor médio padrão
-symmetry = 0.18               # Valor médio padrão
+compactness = concavidade       # Compactação acompanha a concavidade
+concave_points = concavidade    # Pontos côncavos acompanham a concavidade
+fractal_dimension = 0.06        # Valor médio padrão
+symmetry = 0.18                 # Valor médio padrão
 
 input_data = [
     # Média (Mean)
     raio_medio, textura_media, perimetro_medio, area_media, smoothness,
-    compactness, concavity, concave_points, symmetry, fractal_dimension,
+    compactness, concavidade, concave_points, symmetry, fractal_dimension,
     
     # Erro Padrão (Standard Error) - Valores baixos padrão
     0.5, 1.0, 3.0, 40.0, 0.005, 
     0.02, 0.02, 0.01, 0.02, 0.004,
     
-    # Pior Caso (Worst) - Assumimos que o "Pior" é igual ou um pouco maior que a média
+    # Pior Caso (Worst) - Assumimos que o "Pior" é proporcional à média
     raio_medio * 1.2, textura_media, perimetro_medio * 1.2, area_media * 1.2, smoothness,
-    compactness, concavity, concave_points, symmetry, fractal_dimension
+    compactness, concavidade, concave_points, symmetry, fractal_dimension
 ]
 
 prediction = model.predict([input_data])[0]
@@ -119,4 +118,5 @@ with col2:
 
 st.markdown("---")
 st.markdown("<div style='text-align: center; color: grey;'>Sistema desenvolvido para fins acadêmicos - Biomedicina </div>", unsafe_allow_html=True)
+
 
