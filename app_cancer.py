@@ -76,18 +76,36 @@ with col1:
         st.error("⚠️ ALERTA: PADRÃO COMPATÍVEL COM MALIGNIDADE")
         st.markdown(f"**Probabilidade Estimada:** {probability[0]*100:.1f}%")
         
-        st.markdown("### 🧬 Protocolo de Investigação Sugerido")
-        st.warning(
-            """
-            A morfometria nuclear indica alta atípica.
-            
-            **Próximos Passos:**
-            1. **Confirmação Histopatológica:** Biópsia obrigatória.
-            2. **Investigação Citogenética:** * Sequenciamento do gene **BRCA1** (Locus: 17q21).
-               * Sequenciamento do gene **BRCA2** (Locus: 13q12).
-            """
-        )
+        st.markdown("---")
+        st.subheader("🧬 Investigação Citogenética Direcionada")
         
+        # --- AQUI ESTÁ A SUA LÓGICA DE VOLTA (MELHORADA) ---
+        # Se o núcleo for muito grande ou muito deformado, sugere genes mais agressivos
+        if raio_medio > 16.0 or concavidade > 0.14:
+            st.markdown("##### 🚨 Perfil de Alta Agressividade (High Grade)")
+            st.info(
+                """
+                **Fenótipo sugere instabilidade genômica severa.**
+                Investigar painel para:
+                * **Gene TP53** (Cromossomo 17p13) - "O Guardião do Genoma"
+                * **Gene BRCA1** (Cromossomo 17q21)
+                """
+            )
+            
+        else:
+            st.markdown("##### ⚠️ Perfil Moderado / Luminal")
+            st.warning(
+                """
+                **Fenótipo sugere progressão intermediária.**
+                Investigar painel para:
+                * **Gene BRCA2** (Cromossomo 13q12)
+                * **Gene CHEK2** (Cromossomo 22)
+                """
+            )
+            
+            
+        st.caption("Nota: A correlação genótipo-fenótipo é probabilística.")
+            
     else: # Benigno
         st.success("✅ RESULTADO: PADRÃO MORFOLÓGICO BENIGNO")
         st.markdown(f"**Probabilidade de Benignidade:** {probability[1]*100:.1f}%")
@@ -118,6 +136,7 @@ with col2:
 
 st.markdown("---")
 st.markdown("<div style='text-align: center; color: grey;'>Sistema desenvolvido para fins acadêmicos - Biomedicina- Josias M.M.Minghin </div>", unsafe_allow_html=True)
+
 
 
 
