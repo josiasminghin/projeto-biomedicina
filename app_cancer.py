@@ -4,14 +4,14 @@ from sklearn.datasets import load_breast_cancer
 from sklearn.ensemble import RandomForestClassifier
 import numpy as np
 
-# Configuração da Página (Título e ícone)
+# Configuração da Página com tom profissional
 st.set_page_config(
-    page_title="Sistema BioOnco - Diagnóstico Inteligente",
-    page_icon="🧬",
+    page_title="SAD - BioOnco",
+    page_icon="🏥",
     layout="wide"
 )
 
-# --- 1. TREINAMENTO DA IA (O Cérebro) ---
+# --- 1. TREINAMENTO DA IA ---
 @st.cache_resource
 def treinar_modelo():
     data = load_breast_cancer()
@@ -23,36 +23,32 @@ def treinar_modelo():
 
 model, feature_names = treinar_modelo()
 
-# --- 2. INTERFACE (Barra Lateral) ---
-st.sidebar.image("https://cdn-icons-png.flaticon.com/512/3004/3004458.png", width=100)
-st.sidebar.title("🔬 Parâmetros da Amostra")
-st.sidebar.write("Ajuste as medidas da citometria:")
+# --- 2. BARRA LATERAL (Entrada de Dados) ---
+st.sidebar.header("🔬 Parâmetros Morfométricos")
+st.sidebar.markdown("Insira os dados da análise citológica:")
 
-# Sliders (Controles)
-# Usamos valores padrão que geram 'Benigno' para começar
-raio_medio = st.sidebar.slider("Raio Médio do Núcleo", 6.0, 30.0, 14.0)
-textura_media = st.sidebar.slider("Textura (Desvio Padrão)", 9.0, 40.0, 19.0)
-perimetro_medio = st.sidebar.slider("Perímetro Nuclear", 40.0, 190.0, 90.0)
-area_media = st.sidebar.slider("Área Nuclear", 140.0, 2500.0, 600.0)
+# Sliders ajustados para cobrir as médias reais
+raio_medio = st.sidebar.slider("Raio Médio", 6.0, 30.0, 14.0, help="Média Benigno: ~12.1 | Maligno: ~17.4")
+textura_media = st.sidebar.slider("Textura (Desvio Padrão)", 9.0, 40.0, 19.0, help="Média Benigno: ~17.9 | Maligno: ~21.6")
+perimetro_medio = st.sidebar.slider("Perímetro", 40.0, 190.0, 90.0, help="Média Benigno: ~78.0 | Maligno: ~115.3")
+area_media = st.sidebar.slider("Área Nuclear", 140.0, 2500.0, 600.0, help="Média Benigno: ~462.0 | Maligno: ~978.0")
 smoothness = st.sidebar.slider("Suavidade (Smoothness)", 0.05, 0.25, 0.09)
-concavidade = st.sidebar.slider("Concavidade", 0.0, 0.5, 0.04)
+concavidade = st.sidebar.slider("Concavidade", 0.0, 0.5, 0.04, help="Ponto chave para malignidade")
 
-# --- 3. PREDIÇÃO (O Cálculo) ---
-# Criamos um paciente "fictício" com médias gerais para preencher o que falta
-# E substituímos pelos valores que o usuário escolheu nos sliders
+# --- 3. PREDIÇÃO ---
+# Montando o vetor de dados com as médias para os valores não preenchidos
 input_data = [
     raio_medio, textura_media, perimetro_medio, area_media, smoothness,
-    0.0, concavidade, 0.0, 0.0, 0.0, # Preenchemos o resto com zeros ou médias
+    0.0, concavidade, 0.0, 0.0, 0.0, 
     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
     raio_medio, textura_media, perimetro_medio, area_media, smoothness,
     0.0, concavidade, 0.0, 0.0, 0.0
 ]
 
-# A IA calcula a probabilidade
 prediction = model.predict([input_data])[0]
 probability = model.predict_proba([input_data])[0]
 
-# --- 4. TELA PRINCIPAL (Resultados) ---
+# --- 4. TELA PRINCIPAL (Laudo) ---
 
 st.title("🧬 Sistema de Apoio ao Diagnóstico (SAD)")
 st.markdown("---")
@@ -60,37 +56,51 @@ st.markdown("---")
 col1, col2 = st.columns([2, 1])
 
 with col1:
-    st.subheader("Resultado da Análise Morfométrica")
+    st.subheader("Laudo Preliminar (IA)")
     
     if prediction == 0: # Maligno
-        st.error("🚨 RESULTADO: ALTA PROBABILIDADE DE MALIGNIDADE")
-        st.write(f"Confiança da IA: **{probability[0]*100:.1f}%**")
+        st.error("⚠️ ALERTA: PADRÃO COMPATÍVEL COM MALIGNIDADE")
+        st.markdown(f"**Probabilidade Estimada:** {probability[0]*100:.1f}%")
         
-        st.markdown("### 🧬 Sugestão de Investigação Genética")
+        st.markdown("### 🧬 Protocolo de Investigação Sugerido")
         st.warning(
             """
-            **Protocolo Sugerido:**
-            1. Realizar Biópsia Confirmatória.
-            2. **Painel NGS (Sequenciamento):** Investigar mutações nos genes **BRCA1** (Cromossomo 17) e **BRCA2** (Cromossomo 13).
-            3. Avaliar expressão de HER2.
+            A morfometria nuclear indica alta atipia.
+            
+            **Próximos Passos:**
+            1. **Confirmação Histopatológica:** Biópsia obrigatória.
+            2. **Investigação Citogenética:** * Sequenciamento do gene **BRCA1** (Locus: 17q21).
+               * Sequenciamento do gene **BRCA2** (Locus: 13q12).
             """
         )
         
     else: # Benigno
-        st.success("✅ RESULTADO: PADRÃO BENIGNO DETECTADO")
-        st.write(f"Probabilidade de ser benigno: **{probability[1]*100:.1f}%**")
-        st.balloons()
-        st.info("Monitoramento clínico anual recomendado. Nenhuma alteração citogenética visualizada.")
+        st.success("✅ RESULTADO: PADRÃO MORFOLÓGICO BENIGNO")
+        st.markdown(f"**Probabilidade de Benignidade:** {probability[1]*100:.1f}%")
+        
+        # AQUI MUDOU: Texto sério em vez de balões
+        st.info(
+            """
+            **Conduta:**
+            * As características nucleares estão dentro dos limites da normalidade.
+            * Manter rotina de rastreamento conforme diretrizes clínicas.
+            * Resultado sujeito a revisão médica.
+            """
+        )
 
 with col2:
+    # Painel lateral direito com resumo
+    st.markdown("### Resumo da Análise")
     st.metric(label="Classificação", value="Maligno" if prediction == 0 else "Benigno")
-    st.metric(label="Risco Calculado", value=f"{probability[0]*100:.1f}%")
+    
+    # Indicador visual de risco (Barra de progresso)
+    st.write("Nível de Risco:")
+    st.progress(int(probability[0]*100))
     
     st.markdown("---")
-    st.write("**Dados Técnicos:**")
-    st.caption(f"Raio: {raio_medio} | Textura: {textura_media}")
-    st.caption("Modelo: Random Forest (Scikit-Learn)")
+    st.caption(f"Raio Nuclear: {raio_medio} µm")
+    st.caption(f"Concavidade: {concavidade}")
+    st.caption("Algoritmo: Random Forest")
 
-# Rodapé
 st.markdown("---")
-st.caption("Desenvolvido por Josias M.M.Minghin para disciplina de Biomedicina e TICs ")
+st.markdown("<div style='text-align: center; color: grey;'>Sistema desenvolvido para fins acadêmicos - Biomedicina 1º Ano</div>", unsafe_allow_html=True)
