@@ -79,7 +79,7 @@ with col1:
         st.markdown("### 🧬 Protocolo de Investigação Sugerido")
         st.warning(
             """
-            A morfometria nuclear indica alta atipia.
+            A morfometria nuclear indica alta atípica.
             
             **Próximos Passos:**
             1. **Confirmação Histopatológica:** Biópsia obrigatória.
@@ -117,6 +117,7 @@ with col2:
     st.caption("Algoritmo: Random Forest")
 
 st.markdown("---")
-st.markdown("<div style='text-align: center; color: grey;'>Sistema desenvolvido para fins acadêmicos - Biomedicina </div>", unsafe_allow_html=True)
+st.markdown("<div style='text-align: center; color: grey;'>Sistema desenvolvido para fins acadêmicos - Biomedicina- Josias M.M.Minghin </div>", unsafe_allow_html=True)
+
 
 
