@@ -11,7 +11,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# --- FUNÇÃO: CARREGAR O GUIA DIDÁTICO (NOVA) ---
+# --- FUNÇÃO: CARREGAR O GUIA DIDÁTICO (VERSÃO CORRIGIDA - IMAGENS LOCAIS) ---
 def mostrar_guia_didatico():
     st.title("📚 Guia de Tipos Moleculares e Tratamentos")
     st.markdown("---")
@@ -37,39 +37,41 @@ def mostrar_guia_didatico():
             **Tratamento Típico:**
             * Cirurgia
             * Radioterapia (maioria dos casos)
-            * **Hormonioterapia** por 5–10 anos (Tamoxifeno/Inibidores da aromatase)
+            * **Hormonioterapia** por 5–10 anos
             * Quimioterapia: 👉 nem sempre necessária
             
-            ✅ **Responde bem a tratamento** ⏳ **Crescimento mais lento**
+            ✅ **Responde bem a tratamento**
             """)
             
             st.error("### 3. Triplo Negativo")
             st.markdown("""
-            *📌 O mais desafiador (não tem receptores hormonais nem HER2).*
+            *📌 O mais desafiador (sem receptores).*
             
             **Tratamento Típico:**
             * Cirurgia + Radioterapia
             * **Quimioterapia é essencial**
             * Imunoterapia (casos selecionados)
             
-            ⚠️ **Crescimento rápido** 🚫 Não responde a hormônios
+            ⚠️ **Crescimento rápido**
             """)
 
         with col_b:
             st.warning("### 2. HER2 Positivo")
             st.markdown("""
-            *📌 Mais agressivo, mas hoje muito tratável com terapia alvo.*
+            *📌 Mais agressivo, mas hoje muito tratável.*
             
             **Tratamento Típico:**
             * Cirurgia + Radioterapia
-            * Quimioterapia + **Terapia Alvo Anti-HER2** (ex: Trastuzumabe)
+            * Quimioterapia + **Terapia Alvo Anti-HER2**
             
-            🎯 **Tratamento bem específico** (~1 ano de duração)  
-            📉 Prognóstico melhorou muito nos últimos anos
+            🎯 **Tratamento específico** (~1 ano)
             """)
-            # Ilustração Genérica de Célula (Placeholder educativo)
-            st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Breast_cancer_illustration_pt.svg/512px-Breast_cancer_illustration_pt.svg.png", 
-                     caption="Ilustração: Estágios e Anatomia (Wikimedia Commons)", width=300)
+            
+            # Tenta carregar a imagem local, se não tiver, avisa
+            try:
+                st.image("imagens/anatomia.png", caption="Ilustração: Estágios e Anatomia", width=300)
+            except:
+                st.caption("Imagem 'anatomia.png' não encontrada na pasta 'imagens'.")
 
     with aba2:
         st.header("Diferenças por Tipo Histológico")
@@ -79,75 +81,64 @@ def mostrar_guia_didatico():
             st.subheader("Carcinoma Ductal In Situ (CDIS)")
             st.success("Estágio 0 (Pré-invasivo)")
             st.markdown("""
-            * Cirurgia (conservadora ou mastectomia)
+            * Cirurgia (conservadora)
             * Radioterapia
-            * Às vezes hormonioterapia
             * ❌ **Não precisa quimioterapia**
             """)
             
             st.subheader("Carcinoma Lobular Invasivo")
             st.markdown("""
-            * Tratamento parecido com o ductal invasivo
             * Geralmente é **Hormônio Positivo**
             * Menos sensível à quimioterapia clássica
             """)
-            st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Breast_invasive_lobular_carcinoma_%281%29.jpg/320px-Breast_invasive_lobular_carcinoma_%281%29.jpg", 
-                     caption="Microscopia: Carcinoma Lobular Invasivo (Fonte: Wikimedia)", width=300)
+            try:
+                st.image("imagens/lobular.jpg", caption="Microscopia: Carcinoma Lobular", width=300)
+            except:
+                st.caption("Imagem 'lobular.jpg' não encontrada.")
 
         with c2:
             st.subheader("Câncer Inflamatório")
             st.error("⚠️ Raro e Agressivo")
             st.markdown("""
             * **Tratamento Combinado:**
-            * 1. Quimioterapia Inicial (Neoadjuvante)
+            * 1. Quimioterapia Inicial
             * 2. Cirurgia
             * 3. Radioterapia
-            * 4. Terapias alvo (se indicado)
             """)
 
     with aba3:
-        st.header("Efeitos Colaterais por Tratamento")
+        st.header("Efeitos Colaterais")
         
-        with st.expander("🔪 Cirurgia (Mastectomia / Lumpectomia)"):
-            st.markdown("""
-            * **Efeitos:** Dor, hematoma, seroma, impacto psicológico.
-            * **Linfedema:** Inchaço no braço após esvaziamento axilar.
-            """)
-            # Imagem com "Spoiler" (oculta inicialmente para não impressionar)
-            st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Lymphedema.jpg/320px-Lymphedema.jpg", 
-                     caption="Exemplo de Linfedema no braço (Fonte: Wikimedia)", width=250)
+        with st.expander("🔪 Cirurgia e Linfedema"):
+            st.markdown("**Linfedema:** Inchaço no braço após esvaziamento axilar.")
+            try:
+                st.image("imagens/linfedema.jpg", caption="Exemplo de Linfedema", width=250)
+            except:
+                st.caption("Imagem 'linfedema.jpg' não encontrada.")
 
         with st.expander("☢️ Radioterapia"):
             col_r1, col_r2 = st.columns([1, 2])
             with col_r1:
-                st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Diagram_showing_how_you_have_internal_radiotherapy_for_breast_cancer_CRUK_159.svg/320px-Diagram_showing_how_you_have_internal_radiotherapy_for_breast_cancer_CRUK_159.svg.png",
-                         caption="Esquema de Radioterapia (CRUK)")
+                try:
+                    st.image("imagens/radioterapia.png", caption="Esquema de Radioterapia")
+                except:
+                    st.caption("Imagem 'radioterapia.png' não encontrada.")
             with col_r2:
-                st.write("**Agudos:** Radiodermite (vermelhidão/descamação), fadiga.")
-                st.write("**Tardios:** Fibrose, alteração de pigmentação.")
+                st.write("**Efeitos:** Vermelhidão na pele, fadiga e fibrose tardia.")
         
-        with st.expander("💊 Quimioterapia e Terapia Alvo"):
+        with st.expander("💊 Quimioterapia"):
             st.markdown("""
-            **Quimioterapia (Vermelha/Branca):**
-            * Náuseas, Alopecia (queda de cabelo), Fadiga, Baixa imunidade.
-            * *Taxanos:* Podem causar formigamento nas mãos/pés.
-            
-            **Terapia Alvo (Anti-HER2):**
-            * Geralmente não cai cabelo.
-            * Risco de cardiotoxicidade (monitorar coração).
-            
-            **Hormonioterapia (Comprimidos):**
-            * Sintomas de menopausa (calores), dores articulares.
+            * **Quimio:** Náuseas, queda de cabelo, baixa imunidade.
+            * **Hormonioterapia:** Sintomas de menopausa, dores articulares.
             """)
 
     with aba4:
-        st.header("O que influencia a decisão médica?")
+        st.header("Fatores de Decisão Médica")
         st.markdown("""
-        Além do tipo molecular, o oncologista avalia:
-        1. **Estágio da doença** (Tamanho e disseminação)
-        2. **Linfonodos** (Ínguas comprometidas na axila)
-        3. **Idade e Saúde Geral** da paciente
-        4. **Testes Genéticos** (ex: Mutações *BRCA1/2*)
+        1. **Estágio** (Tamanho e metástase)
+        2. **Linfonodos** (Axila comprometida?)
+        3. **Idade e Saúde** da paciente
+        4. **Genética** (Mutações BRCA1/2)
         """)
 
 # --- LÓGICA DO APP ORIGINAL (DIAGNÓSTICO) ---
@@ -253,6 +244,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
