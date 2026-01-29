@@ -11,7 +11,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# --- FUNÇÃO: CARREGAR O GUIA DIDÁTICO (VERSÃO CORRIGIDA - IMAGENS LOCAIS) ---
+# --- FUNÇÃO: CARREGAR O GUIA DIDÁTICO (CORRIGIDO PARA ARQUIVOS NA RAIZ) ---
 def mostrar_guia_didatico():
     st.title("📚 Guia de Tipos Moleculares e Tratamentos")
     st.markdown("---")
@@ -67,11 +67,11 @@ def mostrar_guia_didatico():
             🎯 **Tratamento específico** (~1 ano)
             """)
             
-            # Tenta carregar a imagem local, se não tiver, avisa
+            # IMAGEM 1: Anatomia
             try:
-                st.image("https://raw.githubusercontent.com/josiasminghin/projeto-biomedicina/main/anatomia.png", caption="Ilustração: Estágios e Anatomia", width=300)
+                st.image("anatomia.png", caption="Ilustração: Estágios e Anatomia", width=300)
             except:
-                st.caption("Imagem 'anatomia.png' não encontrada na pasta 'imagens'.")
+                st.warning("Imagem 'anatomia.png' ainda não carregou. Tente atualizar a página.")
 
     with aba2:
         st.header("Diferenças por Tipo Histológico")
@@ -91,10 +91,12 @@ def mostrar_guia_didatico():
             * Geralmente é **Hormônio Positivo**
             * Menos sensível à quimioterapia clássica
             """)
+            
+            # IMAGEM 2: Lobular
             try:
-                st.image("https://raw.githubusercontent.com/josiasminghin/projeto-biomedicina/main/lobular.jpg", caption="Microscopia: Carcinoma Lobular", width=300)
+                st.image("lobular.jpg", caption="Microscopia: Carcinoma Lobular", width=300)
             except:
-                st.caption("Imagem 'lobular.jpg' não encontrada.")
+                st.warning("Imagem 'lobular.jpg' não encontrada.")
 
         with c2:
             st.subheader("Câncer Inflamatório")
@@ -111,18 +113,20 @@ def mostrar_guia_didatico():
         
         with st.expander("🔪 Cirurgia e Linfedema"):
             st.markdown("**Linfedema:** Inchaço no braço após esvaziamento axilar.")
+            # IMAGEM 3: Linfedema
             try:
-                st.image("https://raw.githubusercontent.com/josiasminghin/projeto-biomedicina/main/linfedema.jpg", caption="Exemplo de Linfedema", width=250)
+                st.image("linfedema.jpg", caption="Exemplo de Linfedema", width=250)
             except:
-                st.caption("Imagem 'linfedema.jpg' não encontrada.")
+                st.warning("Imagem 'linfedema.jpg' não encontrada.")
 
         with st.expander("☢️ Radioterapia"):
             col_r1, col_r2 = st.columns([1, 2])
             with col_r1:
+                # IMAGEM 4: Radioterapia
                 try:
-                    st.image("https://raw.githubusercontent.com/josiasminghin/projeto-biomedicina/main/radioterapia.png", caption="Esquema de Radioterapia")
+                    st.image("radioterapia.png", caption="Esquema de Radioterapia")
                 except:
-                    st.caption("Imagem 'radioterapia.png' não encontrada.")
+                    st.warning("Imagem 'radioterapia.png' não encontrada.")
             with col_r2:
                 st.write("**Efeitos:** Vermelhidão na pele, fadiga e fibrose tardia.")
         
@@ -244,6 +248,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
