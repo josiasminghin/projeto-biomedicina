@@ -69,7 +69,7 @@ def mostrar_guia_didatico():
             
             # Tenta carregar a imagem local, se não tiver, avisa
             try:
-                st.image("imagens/anatomia.png", caption="Ilustração: Estágios e Anatomia", width=300)
+                st.image("https://raw.githubusercontent.com/josiasminghin/projeto-biomedicina/main/anatomia.png", caption="Ilustração: Estágios e Anatomia", width=300)
             except:
                 st.caption("Imagem 'anatomia.png' não encontrada na pasta 'imagens'.")
 
@@ -92,7 +92,7 @@ def mostrar_guia_didatico():
             * Menos sensível à quimioterapia clássica
             """)
             try:
-                st.image("imagens/lobular.jpg", caption="Microscopia: Carcinoma Lobular", width=300)
+                st.image("https://raw.githubusercontent.com/josiasminghin/projeto-biomedicina/main/lobular.jpg", caption="Microscopia: Carcinoma Lobular", width=300)
             except:
                 st.caption("Imagem 'lobular.jpg' não encontrada.")
 
@@ -112,7 +112,7 @@ def mostrar_guia_didatico():
         with st.expander("🔪 Cirurgia e Linfedema"):
             st.markdown("**Linfedema:** Inchaço no braço após esvaziamento axilar.")
             try:
-                st.image("imagens/linfedema.jpg", caption="Exemplo de Linfedema", width=250)
+                st.image("https://raw.githubusercontent.com/josiasminghin/projeto-biomedicina/main/linfedema.jpg", caption="Exemplo de Linfedema", width=250)
             except:
                 st.caption("Imagem 'linfedema.jpg' não encontrada.")
 
@@ -120,7 +120,7 @@ def mostrar_guia_didatico():
             col_r1, col_r2 = st.columns([1, 2])
             with col_r1:
                 try:
-                    st.image("imagens/radioterapia.png", caption="Esquema de Radioterapia")
+                    st.image("https://raw.githubusercontent.com/josiasminghin/projeto-biomedicina/main/radioterapia.png", caption="Esquema de Radioterapia")
                 except:
                     st.caption("Imagem 'radioterapia.png' não encontrada.")
             with col_r2:
@@ -244,6 +244,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
