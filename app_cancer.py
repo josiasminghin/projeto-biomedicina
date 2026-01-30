@@ -42,8 +42,8 @@ def mostrar_guia_didatico():
         
         with col_paaf2:
             # Imagem ilustrativa da PAAF 
-           st.image("paaf.jpg", caption="Ilustração da técnica PAAF", use_column_width=True)", 
-                     caption="Ilustração da técnica PAAF")
+           st.image("paaf.jpg", caption="Ilustração da técnica PAAF", use_column_width=True)
+                   
 
     # --- ABA 2: A INTELIGÊNCIA DA MÁQUINA (ESTATÍSTICAS) ---
     with aba2:
@@ -249,6 +249,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
