@@ -111,11 +111,11 @@ def mostrar_guia_didatico():
         st.header("Tratamentos e Efeitos")
         with st.expander("🔪 Cirurgia e Linfedema"):
             st.write("Risco de inchaço no braço.")
-            st.image("linfedema.jpg", caption="Linfedema", width=200)
+          st.image("linfedema.jpg", caption="Ilustração do Linfedema", use_column_width=True)           
         with st.expander("☢️ Radioterapia"):
             st.write("Vermelhidão e fadiga.")
-            st.image("radioterapia.png", caption="Radioterapia", width=200)
-
+            st.image("radioterapia.png", caption="Ilustração da técnica Radioterapia", use_column_width=True)
+           
     # --- ABA 6: GLOSSÁRIO ---
     with aba6:
         st.header("🔍 Glossário Técnico")
@@ -228,6 +228,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
