@@ -110,8 +110,7 @@ def mostrar_guia_didatico():
     with aba5:
         st.header("Tratamentos e Efeitos")
         with st.expander("🔪 Cirurgia e Linfedema"):
-            st.write("Risco de inchaço no braço.Ocorre inchaço no braço do mesmo lado onde foram removidos ou tratados os gânglios linfáticos da axila.
-Mama e Tórax")
+            st.write("Risco de inchaço no braço.")
           st.image("linfedema.jpg", caption="Ilustração do Linfedema", use_column_width=True)           
         with st.expander("☢️ Radioterapia"):
             st.write("Vermelhidão e fadiga.")
@@ -229,6 +228,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
