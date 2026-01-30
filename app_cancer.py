@@ -41,8 +41,8 @@ def mostrar_guia_didatico():
             st.info("💡 **Curiosidade:** O dataset deste projeto (Wisconsin) foi criado digitalizando essas lâminas de PAAF e calculando a geometria dos núcleos celulares.")
         
         with col_paaf2:
-            # Imagem ilustrativa da PAAF (Link da Wikipedia Commons)
-            st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Fine_needle_aspiration_breast.jpg/320px-Fine_needle_aspiration_breast.jpg", 
+            # Imagem ilustrativa da PAAF 
+           st.image("paaf.jpg", caption="Ilustração da técnica PAAF", use_column_width=True)", 
                      caption="Ilustração da técnica PAAF")
 
     # --- ABA 2: A INTELIGÊNCIA DA MÁQUINA (ESTATÍSTICAS) ---
@@ -249,6 +249,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
