@@ -104,7 +104,7 @@ def mostrar_guia_didatico():
             st.warning("### 2. HER2 Positivo")
             st.write("Tratamento: Terapia Alvo (Anti-HER2).")
             # Foto da Anatomia
-            st.image("anatomia.png", caption="Anatomia da Mama", width=250)
+            st.image("anatomia.png", caption="Anatomia da Mama", use_column_width=True)
 
     # --- ABA 5: TRATAMENTOS ---
     with aba5:
@@ -228,6 +228,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
