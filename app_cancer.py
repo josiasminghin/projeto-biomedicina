@@ -90,7 +90,8 @@ def mostrar_guia_didatico():
             st.subheader("Câncer Inflamatório")
             st.error("⚠️ Raro e Agressivo")
             st.write("* Tratamento Combinado (Quimio + Cirurgia + Radio).")
-
+            # A FOTO DO CARCINOMA INFLAMATÓRIO
+            st.image("inflamatório", caption="Microscopia: Carcinoma inflamatório", use_column_width=True)
     # --- ABA 4: TIPOS MOLECULARES ---
     with aba4:
         st.header("Classificação Molecular")
@@ -228,6 +229,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
