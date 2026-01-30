@@ -11,141 +11,120 @@ st.set_page_config(
     layout="wide"
 )
 
-# --- FUNÇÃO: CARREGAR O GUIA DIDÁTICO (VERSÃO 4.0 - COMPLETA) ---
+# --- FUNÇÃO: CARREGAR O GUIA DIDÁTICO (VERSÃO 5.0 - COMPLETA E CORRIGIDA) ---
 def mostrar_guia_didatico():
     st.title("📚 Guia Didático e Base Científica")
     st.markdown("---")
     
-    # Adicionamos novas abas para o conteúdo técnico PAAF e Estatísticas
-    aba1, aba2, aba3, aba4, aba5 = st.tabs([
+    # AGORA SÃO 6 ABAS (Trouxemos a Histologia de volta)
+    aba1, aba2, aba3, aba4, aba5, aba6 = st.tabs([
         "💉 O Exame (PAAF)",
         "📊 Estatísticas (IA)",
+        "🔬 Tipos Histológicos", # <-- ELA VOLTOU!
         "🧬 Tipos Moleculares", 
         "💊 Tratamentos",
-        "❓ Glossário de Termos"
+        "❓ Glossário"
     ])
 
-    # --- ABA 1: EXPLICANDO A TÉCNICA (PAAF) ---
+    # --- ABA 1: O EXAME PAAF ---
     with aba1:
         st.header("A Origem dos Dados: PAAF de Mama")
-        
         col_paaf1, col_paaf2 = st.columns([2, 1])
         with col_paaf1:
             st.markdown("""
-            **PAAF (Punção Aspirativa por Agulha Fina)** é o procedimento padrão-ouro para coleta inicial.
-            
-            * **O que é:** Uma técnica minimamente invasiva onde uma agulha fina é inserida no nódulo para aspirar células.
-            * **Como funciona:** Guiada por ultrassom, permite visualizar a agulha dentro da lesão, garantindo que a amostra venha do lugar certo, mesmo em nódulos pequenos.
-            * **O Resultado:** O material coletado é colocado em uma lâmina de vidro, corado e analisado ao microscópio. É dessa lâmina que a IA extrai os dados matemáticos.
+            **PAAF (Punção Aspirativa por Agulha Fina)** é o procedimento padrão-ouro.
+            * **O que é:** Agulha fina inserida no nódulo para aspirar células.
+            * **Como funciona:** Guiada por ultrassom, garante precisão.
+            * **O Resultado:** Lâmina de vidro analisada ao microscópio (origem dos dados da IA).
             """)
-            st.info("💡 **Curiosidade:** O dataset deste projeto (Wisconsin) foi criado digitalizando essas lâminas de PAAF e calculando a geometria dos núcleos celulares.")
-        
+            st.info("💡 **Curiosidade:** O dataset Wisconsin foi criado digitalizando essas lâminas.")
         with col_paaf2:
-            # Imagem ilustrativa da PAAF 
-           st.image("paaf.jpg", caption="Ilustração da técnica PAAF", use_column_width=True)
-                   
+            st.image("paaf.jpg", caption="Ilustração da técnica PAAF", use_column_width=True)
 
-    # --- ABA 2: A INTELIGÊNCIA DA MÁQUINA (ESTATÍSTICAS) ---
+    # --- ABA 2: ESTATÍSTICAS (IA) ---
     with aba2:
         st.header("Como a IA diferencia Benigno de Maligno?")
-        st.write("A IA não 'chuta'. Ela analisa padrões estatísticos robustos. Veja a comparação real dos dados:")
-
-        # Tabela Comparativa (Baseada nos dados reais do WDBC)
+        st.write("Comparação real dos dados do Dataset Wisconsin:")
         st.markdown("### ⚖️ Comparação Numérica (Médias)")
         
         col_stat1, col_stat2 = st.columns(2)
-        
         with col_stat1:
             st.success("🟢 **Padrão Benigno**")
             st.markdown("""
             * **Raio Médio:** ~12.15
-            * **Textura:** ~17.91 (Mais uniforme)
+            * **Textura:** ~17.91 (Uniforme)
             * **Perímetro:** ~78.08
             * **Área:** ~462.8
-            * **Concavidade:** ~0.046 (Núcleo redondinho)
+            * **Concavidade:** ~0.046 (Redondo)
             """)
-        
         with col_stat2:
             st.error("🔴 **Padrão Maligno**")
             st.markdown("""
-            * **Raio Médio:** ~17.46 (Núcleos grandes)
-            * **Textura:** ~21.60 (Manchado/Irregular)
+            * **Raio Médio:** ~17.46 (Grande)
+            * **Textura:** ~21.60 (Irregular)
             * **Perímetro:** ~115.4
-            * **Área:** ~978.4 (Quase o dobro!)
-            * **Concavidade:** ~0.161 (Bordas dentadas)
+            * **Área:** ~978.4 (Dobro!)
+            * **Concavidade:** ~0.161 (Dentado)
             """)
+        st.info("🧠 **Interpretação:** ÁREA e CONCAVIDADE são os maiores delatores do câncer.")
 
-        st.markdown("---")
-        st.caption("Fonte dos dados: Wisconsin Breast Cancer Diagnostic Dataset (WDBC).")
-        st.info("🧠 **Interpretação:** Note que a ÁREA e a CONCAVIDADE nos tumores malignos são drasticamente maiores. O algoritmo aprende essas diferenças.")
-
-    # --- ABA 3: TIPOS MOLECULARES ---
+    # --- ABA 3: TIPOS HISTOLÓGICOS (RECUPERADA COM A FOTO!) ---
     with aba3:
+        st.header("Diferenças por Tipo Histológico")
+        c1, c2 = st.columns(2)
+        with c1:
+            st.subheader("Carcinoma Ductal In Situ (CDIS)")
+            st.success("Estágio 0 (Pré-invasivo)")
+            st.write("* Cirurgia + Radio. Não precisa quimio.")
+            
+            st.markdown("---")
+            st.subheader("Carcinoma Lobular Invasivo")
+            st.markdown("""
+            * Geralmente **Hormônio Positivo**.
+            * Menos sensível à quimioterapia clássica.
+            """)
+            # AQUI ESTÁ A SUA FOTO DO LOBULAR
+            st.image("lobular.jpg", caption="Microscopia: Carcinoma Lobular", use_column_width=True)
+
+        with c2:
+            st.subheader("Câncer Inflamatório")
+            st.error("⚠️ Raro e Agressivo")
+            st.write("* Tratamento Combinado (Quimio + Cirurgia + Radio).")
+
+    # --- ABA 4: TIPOS MOLECULARES ---
+    with aba4:
         st.header("Classificação Molecular")
-        st.write("O tratamento depende da 'personalidade' biológica do tumor.")
-        
         col_a, col_b = st.columns(2)
         with col_a:
-            st.info("### 1. Hormônio Positivo (ER/PR+)")
-            st.markdown("""
-            *📌 É o tipo mais comum e geralmente com melhor prognóstico.*
-            * **Tratamento:** Hormonioterapia por 5–10 anos.
-            * ✅ **Responde bem a tratamento**
-            """)
-            
+            st.info("### 1. Hormônio Positivo")
+            st.write("Crescimento lento. Tratamento: Hormonioterapia.")
             st.error("### 3. Triplo Negativo")
-            st.markdown("""
-            *📌 O mais desafiador (sem receptores).*
-            * **Tratamento:** Quimioterapia é essencial.
-            * ⚠️ **Crescimento rápido**
-            """)
-
+            st.write("Agressivo. Tratamento: Quimioterapia essencial.")
         with col_b:
             st.warning("### 2. HER2 Positivo")
-            st.markdown("""
-            *📌 Mais agressivo, mas hoje muito tratável.*
-            * **Tratamento:** Quimioterapia + Terapia Alvo (Anti-HER2).
-            * 🎯 **Tratamento específico**
-            """)
-            try:
-                st.image("anatomia.png", caption="Ilustração: Estágios", width=250)
-            except:
-                st.caption("Imagem anatomia.png não carregada.")
+            st.write("Tratamento: Terapia Alvo (Anti-HER2).")
+            # Foto da Anatomia
+            st.image("anatomia.png", caption="Anatomia da Mama", width=250)
 
-    # --- ABA 4: TRATAMENTOS E EFEITOS ---
-    with aba4:
-        st.header("Tratamentos e Efeitos Colaterais")
-        
-        with st.expander("🔪 Cirurgia e Linfedema"):
-            st.markdown("**Linfedema:** Inchaço no braço após esvaziamento axilar.")
-            try:
-                st.image("linfedema.jpg", caption="Exemplo de Linfedema", width=200)
-            except:
-                st.caption("Imagem linfedema.jpg não carregada.")
-
-        with st.expander("☢️ Radioterapia"):
-            col_r1, col_r2 = st.columns([1, 2])
-            with col_r1:
-                try:
-                    st.image("radioterapia.png", caption="Esquema")
-                except:
-                    st.caption("Imagem radioterapia.png não carregada.")
-            with col_r2:
-                st.write("**Efeitos:** Vermelhidão na pele, fadiga e fibrose tardia.")
-
-    # --- ABA 5: GLOSSÁRIO TÉCNICO ---
+    # --- ABA 5: TRATAMENTOS ---
     with aba5:
-        st.header("🔍 Glossário: Entendendo os Parâmetros")
-        st.markdown("""
-        Se você sempre teve dúvida do que significam os números que a IA analisa:
-        
-        * **📏 Raio Médio:** Distância do centro do núcleo até a borda. (Câncer = Núcleos gigantes).
-        * **🧵 Textura:** Variação da cor cinza. (Câncer = Aparência "suja" ou heterogênea).
-        * **📐 Perímetro:** O tamanho do contorno. (Câncer = Contorno grande e irregular).
-        * **🌊 Suavidade:** Quão lisa é a borda. (Câncer = Bordas ásperas/denteadas).
-        * **🕳️ Concavidade:** "Buracos" ou reentrâncias na borda. (Câncer = Muitas invaginações).
-        """)
+        st.header("Tratamentos e Efeitos")
+        with st.expander("🔪 Cirurgia e Linfedema"):
+            st.write("Risco de inchaço no braço.")
+            st.image("linfedema.jpg", caption="Linfedema", width=200)
+        with st.expander("☢️ Radioterapia"):
+            st.write("Vermelhidão e fadiga.")
+            st.image("radioterapia.png", caption="Radioterapia", width=200)
 
+    # --- ABA 6: GLOSSÁRIO ---
+    with aba6:
+        st.header("🔍 Glossário Técnico")
+        st.markdown("""
+        * **📏 Raio:** Tamanho do núcleo.
+        * **🧵 Textura:** Variação de cor (sujeira).
+        * **📐 Perímetro:** Contorno.
+        * **🕳️ Concavidade:** Irregularidade da borda (amora).
+        """)
 # --- LÓGICA DO APP ORIGINAL (DIAGNÓSTICO) ---
 def mostrar_diagnostico_ia():
     # Cache para não treinar toda hora
@@ -249,6 +228,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
