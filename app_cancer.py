@@ -110,13 +110,8 @@ def mostrar_guia_didatico():
     with aba5:
         st.header("Tratamentos e Efeitos")
         with st.expander("🔪 Cirurgia e Linfedema"):
-            st.write("Risco de inchaço no braço.Braços (mais comum): Ocorre inchaço no braço do mesmo lado onde foram removidos ou tratados os gânglios linfáticos da axila.
-Mama e Tórax: É comum o inchaço se estender para a região da mama operada ou a parede torácica.
-O inchaço pode afetar todo o membro superior, incluindo mãos e dedos.
-Por que incha?
-A cirurgia para câncer de mama, que remove gânglios da axila, interrompe o fluxo linfático, causando o acúmulo de líquido (linfa) no braço, resultando em sensação de peso, desconforto e inchaço. 
-Importante:
-O inchaço pode surgir logo após o tratamento ou até anos depois. Se notar inchaço, procure um mastologista ou fisioterapeuta especializado para avaliação e tratamento (como drenagem linfática e uso de braçadeiras de compressão). ")
+            st.write("Risco de inchaço no braço.Ocorre inchaço no braço do mesmo lado onde foram removidos ou tratados os gânglios linfáticos da axila.
+Mama e Tórax")
           st.image("linfedema.jpg", caption="Ilustração do Linfedema", use_column_width=True)           
         with st.expander("☢️ Radioterapia"):
             st.write("Vermelhidão e fadiga.")
@@ -234,6 +229,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
