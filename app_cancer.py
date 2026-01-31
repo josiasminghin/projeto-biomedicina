@@ -163,7 +163,7 @@ def mostrar_guia_didatico():
             st.write("A transparência é fundamental na ciência. Entenda a diferença entre o que a IA aprendeu sozinha e as regras médicas inseridas.")
             st.markdown("---")
             col_met1, col_met2 = st.columns(2)        
-        with col_met1:
+    with col_met1:
             st.info("### 🤖 1. Machine Learning (A IA)")
             st.markdown("""
             **O que ela faz:** Distingue Benigno de Maligno.            
@@ -176,7 +176,7 @@ def mostrar_guia_didatico():
             ✅ **Nisso, ela é especialista.**
             """)
 
-        with col_met2:
+    with col_met2:
             st.warning("### ⚕️ 2. Conhecimento Médico (Regras)")
             st.markdown("""
             **O que ele faz:** Sugere Genes (BRCA1, BRCA2, TP53).
@@ -307,6 +307,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
