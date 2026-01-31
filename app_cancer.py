@@ -13,7 +13,7 @@ st.set_page_config(
 import streamlit as st
 import base64
 
-# --- FUNÇÃO: FUNDO LOCAL (SEM LARANJAS!) ---
+# --- FUNÇÃO: FUNDO LOCAL (CORRIGIDA) ---
 def adicionar_fundo_local(imagem_arquivo):
     with open(imagem_arquivo, "rb") as image_file:
         encoded_string = base64.b64encode(image_file.read())
@@ -25,15 +25,15 @@ def adicionar_fundo_local(imagem_arquivo):
         background-image: url(data:image/jpg;base64,{encoded_string.decode()});
         background-attachment: fixed;
         background-size: cover;
-        /* Camada branca por cima para o texto ficar legível (0.85 = 85% transparente) */
-        background-color: rgba(background-color: rgba(255,255,255,0.92););
+        /* CORRIGIDO AQUI EMBAIXO: */
+        /* Ajuste o último número: 0.80 deixa a foto aparecer mais que 0.92 */
+        background-color: rgba(255,255,255,0.80);
         background-blend-mode: overlay;
     }}
     </style>
     """,
     unsafe_allow_html=True
     )
-
 # --- COMO USAR ---
 # Tente carregar o fundo. Se não achar, ele avisa mas não quebra o site.
 try:
@@ -258,6 +258,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
