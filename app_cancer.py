@@ -3,14 +3,37 @@ import pandas as pd
 from sklearn.datasets import load_breast_cancer
 from sklearn.ensemble import RandomForestClassifier
 import numpy as np
-
+import base64
 # Configuração da Página
 st.set_page_config(
     page_title="SAD - BioOnco",
     page_icon="🏥",
     layout="wide"
 )
+# --- FUNÇÃO PARA ADICIONAR FUNDO (BACKGROUND) ---
+def adicionar_fundo(imagem_url):
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background-image: url("{imagem_url}");
+            background-attachment: fixed;
+            background-size: cover;
+            /* Deixa o fundo mais claro para ler o texto (opacidade) */
+            background-blend-mode: overlay;
+            background-color: rgba(255,255,255,0.85); 
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
+# URL de uma imagem científica bonita (DNA/Pesquisa)
+# Você pode trocar esse link por qualquer outro que achar na internet
+url_fundo = "https://img.freepik.com/fotos-gratis/fundo-de-estrutura-molecular-de-dna-azul-brilhante_1409-1262.jpg"
+
+# Chama a função para aplicar
+adicionar_fundo(url_fundo)
 # --- FUNÇÃO: CARREGAR O GUIA DIDÁTICO (VERSÃO 5.0 - COMPLETA E CORRIGIDA) ---
 def mostrar_guia_didatico():
     st.title("📚 Guia Didático e Base Científica")
@@ -229,6 +252,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
