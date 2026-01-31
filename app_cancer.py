@@ -45,14 +45,15 @@ def mostrar_guia_didatico():
     st.title("📚 Guia Didático e Base Científica")
     st.markdown("---")
     
-    # AGORA SÃO 6 ABAS (Trouxemos a Histologia de volta)
-    aba1, aba2, aba3, aba4, aba5, aba6 = st.tabs([
+   # AGORA SÃO 7 ABAS (Adicionamos "Sobre o Projeto")
+    aba1, aba2, aba3, aba4, aba5, aba6, aba7 = st.tabs([
         "💉 O Exame (PAAF)",
         "📊 Estatísticas (IA)",
-        "🔬 Tipos Histológicos", # <-- ELA VOLTOU!
+        "🔬 Tipos Histológicos",
         "🧬 Tipos Moleculares", 
         "💊 Tratamentos",
-        "❓ Glossário"
+        "❓ Glossário",
+        "📘 Sobre o Projeto"  # <--- NOVA ABA
     ])
 
     # --- ABA 1: O EXAME PAAF ---
@@ -306,6 +307,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
