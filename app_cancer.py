@@ -154,6 +154,7 @@ def mostrar_guia_didatico():
         * **🧵 Textura:** Variação de cor (sujeira).
         * **📐 Perímetro:** Contorno.
         * **🕳️ Concavidade:** Irregularidade da borda (amora).
+        * **🕳️ Linfedema:** No câncer de mama é um inchaço crônico, geralmente no braço.
         """)
 # --- LÓGICA DO APP ORIGINAL (DIAGNÓSTICO) ---
 def mostrar_diagnostico_ia():
@@ -258,6 +259,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
