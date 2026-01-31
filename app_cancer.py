@@ -374,3 +374,4 @@ st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
 
 
 
+
