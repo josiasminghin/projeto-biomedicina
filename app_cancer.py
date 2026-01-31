@@ -13,7 +13,7 @@ st.set_page_config(
 import streamlit as st
 import base64
 
-# --- FUNÇÃO: FUNDO LOCAL + PROTEÇÃO VISUAL (VERSÃO COMPLETA) ---
+# --- FUNÇÃO: FUNDO LOCAL + PROTEÇÃO (CORRIGIDA PARA CELULAR) ---
 def adicionar_fundo_local(imagem_arquivo):
     with open(imagem_arquivo, "rb") as image_file:
         encoded_string = base64.b64encode(image_file.read())
@@ -31,12 +31,10 @@ def adicionar_fundo_local(imagem_arquivo):
     }}
 
     /* 2. CORREÇÃO DE TEXTO PARA CELULAR (DARK MODE) */
-    /* Força todo o texto a ser PRETO mesmo se o celular estiver em modo escuro */
     h1, h2, h3, h4, h5, h6, p, li, div, span {{
         color: #000000 !important;
     }}
     
-    /* Ajuste para rolagem no celular */
     @media only screen and (max-width: 600px) {{
         .stApp {{
             background-attachment: scroll;
@@ -44,11 +42,12 @@ def adicionar_fundo_local(imagem_arquivo):
         }}
     }}
 
-    /* 3. PROTEÇÃO: ESCONDER MENUS E BOTÕES (O SEGREDINHO) */
+    /* 3. PROTEÇÃO: ESCONDER APENAS OS TRÊS PONTINHOS E RODAPÉ */
     #MainMenu {{visibility: hidden;}}
-    header {{visibility: hidden;}}
     footer {{visibility: hidden;}}
     .stDeployButton {{display:none;}}
+    
+    /* OBS: Removemos o 'header {visibility: hidden}' para o botão do menu voltar! */
     
     </style>
     """,
@@ -326,6 +325,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
