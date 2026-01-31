@@ -26,7 +26,7 @@ def adicionar_fundo_local(imagem_arquivo):
         background-attachment: fixed;
         background-size: cover;
         /* Camada branca por cima para o texto ficar legível (0.85 = 85% transparente) */
-        background-color: rgba(255,255,255,0.85);
+        background-color: rgba(background-color: rgba(255,255,255,0.92););
         background-blend-mode: overlay;
     }}
     </style>
@@ -258,6 +258,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
