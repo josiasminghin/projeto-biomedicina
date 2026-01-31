@@ -147,16 +147,16 @@ def mostrar_guia_didatico():
             st.image("radioterapia.png", caption="Ilustração da técnica Radioterapia", use_column_width=True)
            
     # --- ABA 6: GLOSSÁRIO ---
-    with aba6:
+   with aba6:
         st.header("🔍 Glossário Técnico")
         st.markdown("""
         * **📏 Raio:** Tamanho do núcleo.
         * **🧵 Textura:** Variação de cor (sujeira).
         * **📐 Perímetro:** Contorno.
         * **🕳️ Concavidade:** Irregularidade da borda (amora).
-        * **🕳️ Linfedema:** No câncer de mama é um inchaço crônico, geralmente no braço.
+        * **💪 Linfedema:** Inchaço crônico, geralmente no braço, por acúmulo de líquido.
         """)
-# --- LÓGICA DO APP ORIGINAL (DIAGNÓSTICO) ---
+    # --- LÓGICA DO APP ORIGINAL (DIAGNÓSTICO) ---
 def mostrar_diagnostico_ia():
     # Cache para não treinar toda hora
     @st.cache_resource
@@ -259,6 +259,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
