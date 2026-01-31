@@ -27,7 +27,7 @@ def adicionar_fundo_local(imagem_arquivo):
         background-size: cover;
         /* CORRIGIDO AQUI EMBAIXO: */
         /* Ajuste o último número: 0.80 deixa a foto aparecer mais que 0.92 */
-        background-color: rgba(255,255,255,0.80);
+        background-color: rgba(255,255,255,0.85);
         background-blend-mode: overlay;
     }}
     </style>
@@ -258,6 +258,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
