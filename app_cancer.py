@@ -13,17 +13,15 @@ st.set_page_config(
 import streamlit as st
 import base64
 
-# --- FUNÇÃO: FUNDO VIA WEB (INFALÍVEL) ---
+# --- FUNÇÃO: FUNDO WEB + MENU VISÍVEL (CORRIGIDA) ---
 def adicionar_fundo_local(imagem_arquivo):
-    # Nota: O parametro 'imagem_arquivo' fica aqui só para não quebrar o código, 
-    # mas vamos usar o LINK DIRETO do GitHub na linha abaixo.
-    
+    # Link direto para garantir que a imagem carregue
     url_github = "https://raw.githubusercontent.com/josiasminghin/projeto-biomedicina/main/fundo.jpg"
 
     st.markdown(
     f"""
     <style>
-    /* 1. CONFIGURAÇÃO DO FUNDO USANDO LINK DO GITHUB */
+    /* 1. CONFIGURAÇÃO DO FUNDO PRINCIPAL */
     .stApp {{
         background-image: url("{url_github}");
         background-attachment: fixed;
@@ -32,11 +30,17 @@ def adicionar_fundo_local(imagem_arquivo):
         background-blend-mode: overlay;
     }}
 
-    /* 2. CORREÇÃO DE TEXTO PARA CELULAR */
-    h1, h2, h3, h4, h5, h6, p, li, div, span {{
+    /* 2. FORÇAR A BARRA LATERAL (MENU) A SER BRANCA TAMBÉM */
+    section[data-testid="stSidebar"] {{
+        background-color: #ffffff !important; /* Fundo Branco */
+    }}
+
+    /* 3. CORREÇÃO DE TEXTO (Tudo Preto) */
+    h1, h2, h3, h4, h5, h6, p, li, div, span, label {{
         color: #000000 !important;
     }}
     
+    /* 4. AJUSTE PARA CELULAR */
     @media only screen and (max-width: 600px) {{
         .stApp {{
             background-attachment: scroll;
@@ -44,8 +48,7 @@ def adicionar_fundo_local(imagem_arquivo):
         }}
     }}
 
-    /* 3. PROTEÇÃO: ESCONDER MENUS */
-    #MainMenu {{visibility: hidden;}}
+    /* 5. PROTEÇÃO (Esconde Rodapé e Botão Deploy, mas deixa o Menu funcionar) */
     footer {{visibility: hidden;}}
     .stDeployButton {{display:none;}}
     
@@ -325,6 +328,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
