@@ -219,9 +219,9 @@ def mostrar_guia_didatico():
             ⚠️ **Isso é uma inferência clínica, não um teste genético.**
             """)
         
-        st.markdown("---")
-        st.success("### 🎯 Resumo da Metodologia")
-        st.markdown("""
+            st.markdown("---")
+            st.success("### 🎯 Resumo da Metodologia")
+            st.markdown("""
         O sistema combina duas inteligências:
         1.  **Artificial:** Para ler a geometria e dar o diagnóstico visual.
         2.  **Humana (Biomédica):** Para correlacionar essa geometria com prováveis mutações genéticas baseadas na agressividade do fenótipo.
@@ -335,6 +335,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
