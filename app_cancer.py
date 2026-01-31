@@ -182,6 +182,12 @@ def mostrar_diagnostico_ia():
     smoothness = st.sidebar.slider("Suavidade", 0.05, 0.25, 0.09)
     concavidade = st.sidebar.slider("Concavidade", 0.0, 0.5, 0.04)
 
+   # --- CORREÇÃO DE LÓGICA (NOVO) ---
+    # Se o raio for grande (>15) e a área estiver pequena (<700), a gente corrige a matemática
+    area_calculada = area_media
+    if raio_medio > 15.0 and area_media < 700:
+        area_calculada = 3.1415 * (raio_medio ** 2) # Fórmula: Pi * R²
+
     # Lógica de preenchimento inteligente
     compactness = concavidade
     concave_points = concavidade
@@ -189,11 +195,11 @@ def mostrar_diagnostico_ia():
     symmetry = 0.18
 
     input_data = [
-        raio_medio, textura_media, perimetro_medio, area_media, smoothness,
+        raio_medio, textura_media, perimetro_medio, area_calculada, smoothness, # Usa a área corrigida
         compactness, concavidade, concave_points, symmetry, fractal_dimension,
         0.5, 1.0, 3.0, 40.0, 0.005, 
         0.02, 0.02, 0.01, 0.02, 0.004,
-        raio_medio * 1.2, textura_media, perimetro_medio * 1.2, area_media * 1.2, smoothness,
+        raio_medio * 1.2, textura_media, perimetro_medio * 1.2, area_calculada * 1.2, smoothness,
         compactness, concavidade, concave_points, symmetry, fractal_dimension
     ]
 
@@ -259,6 +265,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
