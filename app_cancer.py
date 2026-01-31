@@ -158,20 +158,15 @@ def mostrar_guia_didatico():
         """)
         # --- ABA 7: METODOLOGIA (SOBRE O PROJETO) ---
     with aba7:
-        st.header("Bastidores: Como o Sistema Funciona?")
-        st.write("A transparência é fundamental na ciência. Entenda a diferença entre o que a IA aprendeu sozinha e as regras médicas inseridas.")
-        
-        st.markdown("---")
-
-        col_met1, col_met2 = st.columns(2)
-        
+            st.header("Bastidores: Como o Sistema Funciona?")
+            st.write("A transparência é fundamental na ciência. Entenda a diferença entre o que a IA aprendeu sozinha e as regras médicas inseridas.")
+            st.markdown("---")
+            col_met1, col_met2 = st.columns(2)        
         with col_met1:
             st.info("### 🤖 1. Machine Learning (A IA)")
             st.markdown("""
-            **O que ela faz:** Distingue Benigno de Maligno.
-            
-            **Fonte de Dados:** *Breast Cancer Wisconsin (Diagnostic) Data Set*.
-            
+            **O que ela faz:** Distingue Benigno de Maligno.            
+            **Fonte de Dados:** *Breast Cancer Wisconsin (Diagnostic) Data Set*.            
             **Como funciona:**
             * Este banco de dados contém **apenas geometria** (números).
             * Ele **não** tem dados de DNA ou Genes.
@@ -311,6 +306,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
