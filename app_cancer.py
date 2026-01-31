@@ -156,6 +156,52 @@ def mostrar_guia_didatico():
         * **🕳️ Concavidade:** Irregularidade da borda (amora).
         * **💪 Linfedema:** Inchaço crônico, geralmente no braço, por acúmulo de líquido.
         """)
+        # --- ABA 7: METODOLOGIA (SOBRE O PROJETO) ---
+    with aba7:
+        st.header("Bastidores: Como o Sistema Funciona?")
+        st.write("A transparência é fundamental na ciência. Entenda a diferença entre o que a IA aprendeu sozinha e as regras médicas inseridas.")
+        
+        st.markdown("---")
+
+        col_met1, col_met2 = st.columns(2)
+        
+        with col_met1:
+            st.info("### 🤖 1. Machine Learning (A IA)")
+            st.markdown("""
+            **O que ela faz:** Distingue Benigno de Maligno.
+            
+            **Fonte de Dados:** *Breast Cancer Wisconsin (Diagnostic) Data Set*.
+            
+            **Como funciona:**
+            * Este banco de dados contém **apenas geometria** (números).
+            * Ele **não** tem dados de DNA ou Genes.
+            * A IA analisou milhares de casos reais e aprendeu padrões matemáticos, ex: *"Quando a área é grande (>800) e a concavidade é alta, 99% das vezes é Maligno".*
+            
+            ✅ **Nisso, ela é especialista.**
+            """)
+
+        with col_met2:
+            st.warning("### ⚕️ 2. Conhecimento Médico (Regras)")
+            st.markdown("""
+            **O que ele faz:** Sugere Genes (BRCA1, BRCA2, TP53).
+            
+            **Fonte de Dados:** Literatura Médica e Regras de Negócio.
+            
+            **Como funciona:**
+            * A sugestão dos genes **não veio do dataset**.
+            * Foi uma **lógica biomédica** inserida no código (`if raio > 16...`).
+            * **A Lógica:** Tumores com morfologia agressiva (núcleos gigantes/deformados) estatisticamente têm maior correlação com mutações severas (BRCA1/TP53). Tumores menores sugerem perfil Luminal/BRCA2.
+            
+            ⚠️ **Isso é uma inferência clínica, não um teste genético.**
+            """)
+        
+        st.markdown("---")
+        st.success("### 🎯 Resumo da Metodologia")
+        st.markdown("""
+        O sistema combina duas inteligências:
+        1.  **Artificial:** Para ler a geometria e dar o diagnóstico visual.
+        2.  **Humana (Biomédica):** Para correlacionar essa geometria com prováveis mutações genéticas baseadas na agressividade do fenótipo.
+        """)
     # --- LÓGICA DO APP ORIGINAL (DIAGNÓSTICO) ---
 def mostrar_diagnostico_ia():
     # Cache para não treinar toda hora
@@ -265,6 +311,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
