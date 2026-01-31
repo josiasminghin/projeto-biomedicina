@@ -146,8 +146,8 @@ def mostrar_guia_didatico():
             st.write("Vermelhidão e fadiga.")
             st.image("radioterapia.png", caption="Ilustração da técnica Radioterapia", use_column_width=True)
            
-    # --- ABA 6: GLOSSÁRIO ---
-   with aba6:
+   # --- ABA 6: GLOSSÁRIO ---
+    with aba6:
         st.header("🔍 Glossário Técnico")
         st.markdown("""
         * **📏 Raio:** Tamanho do núcleo.
@@ -259,6 +259,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
