@@ -10,30 +10,36 @@ st.set_page_config(
     page_icon="🏥",
     layout="wide"
 )
-# --- FUNÇÃO PARA ADICIONAR FUNDO (BACKGROUND) ---
-def adicionar_fundo(imagem_url):
+import streamlit as st
+import base64
+
+# --- FUNÇÃO: FUNDO LOCAL (SEM LARANJAS!) ---
+def adicionar_fundo_local(imagem_arquivo):
+    with open(imagem_arquivo, "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read())
+    
     st.markdown(
-        f"""
-        <style>
-        .stApp {{
-            background-image: url("{imagem_url}");
-            background-attachment: fixed;
-            background-size: cover;
-            /* Deixa o fundo mais claro para ler o texto (opacidade) */
-            background-blend-mode: overlay;
-            background-color: rgba(255,255,255,0.85); 
-        }}
-        </style>
-        """,
-        unsafe_allow_html=True
+    f"""
+    <style>
+    .stApp {{
+        background-image: url(data:image/jpg;base64,{encoded_string.decode()});
+        background-attachment: fixed;
+        background-size: cover;
+        /* Camada branca por cima para o texto ficar legível (0.85 = 85% transparente) */
+        background-color: rgba(255,255,255,0.85);
+        background-blend-mode: overlay;
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
     )
 
-# URL de uma imagem científica bonita (DNA/Pesquisa)
-# Você pode trocar esse link por qualquer outro que achar na internet
-url_fundo = "https://img.freepik.com/fotos-gratis/fundo-de-estrutura-molecular-de-dna-azul-brilhante_1409-1262.jpg"
-
-# Chama a função para aplicar
-adicionar_fundo(url_fundo)
+# --- COMO USAR ---
+# Tente carregar o fundo. Se não achar, ele avisa mas não quebra o site.
+try:
+    adicionar_fundo_local("fundo.jpg") 
+except:
+    pass # Se não tiver a imagem, fica com o fundo branco padrão
 # --- FUNÇÃO: CARREGAR O GUIA DIDÁTICO (VERSÃO 5.0 - COMPLETA E CORRIGIDA) ---
 def mostrar_guia_didatico():
     st.title("📚 Guia Didático e Base Científica")
@@ -252,6 +258,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
