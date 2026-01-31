@@ -13,7 +13,7 @@ st.set_page_config(
 import streamlit as st
 import base64
 
-# --- FUNÇÃO: FUNDO LOCAL (VERSÃO FINAL MOBILE-FRIENDLY) ---
+# --- FUNÇÃO: FUNDO LOCAL + PROTEÇÃO VISUAL (VERSÃO COMPLETA) ---
 def adicionar_fundo_local(imagem_arquivo):
     with open(imagem_arquivo, "rb") as image_file:
         encoded_string = base64.b64encode(image_file.read())
@@ -21,7 +21,7 @@ def adicionar_fundo_local(imagem_arquivo):
     st.markdown(
     f"""
     <style>
-    /* Força o fundo e ajusta o texto para Preto */
+    /* 1. CONFIGURAÇÃO DO FUNDO (BACKGROUND) */
     .stApp {{
         background-image: url(data:image/jpg;base64,{encoded_string.decode()});
         background-attachment: fixed;
@@ -30,19 +30,26 @@ def adicionar_fundo_local(imagem_arquivo):
         background-blend-mode: overlay;
     }}
 
-    /* --- CORREÇÃO PARA CELULAR --- */
-    /* 1. Força todo o texto a ser PRETO mesmo em Dark Mode */
+    /* 2. CORREÇÃO DE TEXTO PARA CELULAR (DARK MODE) */
+    /* Força todo o texto a ser PRETO mesmo se o celular estiver em modo escuro */
     h1, h2, h3, h4, h5, h6, p, li, div, span {{
         color: #000000 !important;
     }}
     
-    /* 2. Ajuste de fundo para celulares (evita zoom excessivo/erros no iPhone) */
+    /* Ajuste para rolagem no celular */
     @media only screen and (max-width: 600px) {{
         .stApp {{
             background-attachment: scroll;
-            background-size: cover; /* Ou 'contain' se quiser ver a imagem inteira */
+            background-size: cover; 
         }}
     }}
+
+    /* 3. PROTEÇÃO: ESCONDER MENUS E BOTÕES (O SEGREDINHO) */
+    #MainMenu {{visibility: hidden;}}
+    header {{visibility: hidden;}}
+    footer {{visibility: hidden;}}
+    .stDeployButton {{display:none;}}
+    
     </style>
     """,
     unsafe_allow_html=True
@@ -319,6 +326,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
