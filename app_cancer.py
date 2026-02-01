@@ -120,44 +120,133 @@ def mostrar_guia_didatico():
             """)
         st.info("🧠 **Interpretação:** ÁREA e CONCAVIDADE são os maiores delatores do câncer.")
 
-    # --- ABA 3: TIPOS HISTOLÓGICOS (RECUPERADA COM A FOTO!) ---
+    # --- ABA 3: ATLAS DE LÂMINAS (TIPOS HISTOLÓGICOS) ---
     with aba3:
-        st.header("Diferenças por Tipo Histológico")
-        c1, c2 = st.columns(2)
-        with c1:
-            st.subheader("Carcinoma Ductal In Situ (CDIS)")
-            st.success("Estágio 0 (Pré-invasivo)")
-            st.write("* Cirurgia + Radio. Não precisa quimio.")
-            
-            st.markdown("---")
-            st.subheader("Carcinoma Lobular Invasivo")
-            st.markdown("""
-            * Geralmente **Hormônio Positivo**.
-            * Menos sensível à quimioterapia clássica.
-            """)
-            # AQUI ESTÁ A SUA FOTO DO LOBULAR
-            st.image("lobular.jpg", caption="Microscopia: Carcinoma Lobular", use_column_width=True)
+        st.header("🔬 Atlas de Patologia: Tipos Histológicos")
+        st.write("Visualização das diferenças morfológicas entre os principais tipos de câncer de mama.")
+        
+        # Seletor para escolher a lâmina
+        tipo_cancer = st.selectbox(
+            "Escolha o Tipo Histológico para ver a lâmina:",
+            ["Carcinoma Ductal In Situ (CDIS)", 
+             "Carcinoma Lobular Invasivo", 
+             "Carcinoma Inflamatório", 
+             "Tecido Normal/Benigno"]
+        )
 
-        with c2:
-            st.subheader("Câncer Inflamatório")
-            st.error("⚠️ Raro e Agressivo")
-            st.write("* Tratamento Combinado (Quimio + Cirurgia + Radio).")
-            # A FOTO DO CARCINOMA INFLAMATÓRIO (Corrigido)
-            st.image("inflamatorio.jpg", caption="Microscopia: Carcinoma inflamatório", use_column_width=True)
-    # --- ABA 4: TIPOS MOLECULARES ---
+        col_img, col_desc = st.columns([1, 1])
+
+        with col_img:
+            # Lógica para mostrar a imagem correta (lembre de subir os arquivos!)
+            if tipo_cancer == "Carcinoma Ductal In Situ (CDIS)":
+                try: st.image("ductal.jpg", caption="Microscopia: CDIS", use_column_width=True)
+                except: st.warning("⚠️ Adicione a foto 'ductal.jpg' no GitHub.")
+            
+            elif tipo_cancer == "Carcinoma Lobular Invasivo":
+                try: st.image("lobular.jpg", caption="Microscopia: Lobular Invasivo", use_column_width=True)
+                except: st.warning("⚠️ Adicione a foto 'lobular.jpg' no GitHub.")
+
+            elif tipo_cancer == "Carcinoma Inflamatório":
+                try: st.image("inflamatorio.jpg", caption="Microscopia: Carcinoma Inflamatório", use_column_width=True)
+                except: st.warning("⚠️ Adicione a foto 'inflamatorio.jpg' no GitHub.")
+            
+            else:
+                try: st.image("normal.jpg", caption="Microscopia: Tecido Normal", use_column_width=True)
+                except: st.warning("⚠️ Adicione a foto 'normal.jpg' no GitHub.")
+
+        with col_desc:
+            if tipo_cancer == "Carcinoma Ductal In Situ (CDIS)":
+                st.subheader("Características")
+                st.info("Cerca de 80% dos casos.")
+                st.markdown("""
+                * **Origem:** Revestimento dos ductos de leite.
+                * **Comportamento:** Não invadiu o tecido adiposo ou vasos (ainda).
+                * **Prognóstico:** Excelente se tratado cedo.
+                * **Receptores:** Geralmente RE+ e RP+.
+                """)
+            
+            elif tipo_cancer == "Carcinoma Lobular Invasivo":
+                st.subheader("Características")
+                st.warning("Cerca de 10-15% dos casos.")
+                st.markdown("""
+                * **Origem:** Lobos produtores de leite.
+                * **Morfologia:** Células pequenas, redondas, em 'fila indiana' (crescimento linear).
+                * **Dificuldade:** Mais difícil de ver na mamografia pois não forma um 'caroço' denso, mas sim um espessamento.
+                """)
+
+            elif tipo_cancer == "Carcinoma Inflamatório":
+                st.subheader("Características")
+                st.error("Raro (1-5%) e Agressivo.")
+                st.markdown("""
+                * **Sinais Clínicos:** Mama vermelha, inchada e quente (parece mastite).
+                * **Morfologia:** Células tumorais bloqueiam os vasos linfáticos da pele (daí o inchaço).
+                * **Classificação:** Todo inflamatório é considerado, no mínimo, Estágio III.
+                """)
+            
+            else:
+                st.success("Tecido Saudável / Benigno")
+                st.markdown("""
+                * Estruturas ductais e lobulares preservadas.
+                * Membrana basal intacta.
+                * Ausência de atipias nucleares (núcleos uniformes).
+                """)
+        
+        st.markdown("---")
+        with st.expander("📚 Aula: Como surge o Câncer (Oncogênese)"):
+            st.markdown("""
+            **1. A Mutação:** Células normais sofrem alterações no DNA devido a fatores hereditários ou ambientais (tabagismo, radiação, idade).
+            
+            **2. Perda de Controle:** Elas perdem a capacidade de parar de crescer (apoptose) e começam a se multiplicar desenfreadamente.
+            
+            **3. Angiogênese:** O tumor cria novos vasos sanguíneos para se "alimentar".
+            
+            **4. Invasão:** Elas produzem enzimas que destroem tecidos vizinhos e enganam o sistema imune.
+            """)
+
+    # --- ABA 4: BIOLOGIA MOLECULAR (SUBTIPOS & IMUNOISTOQUÍMICA) ---
     with aba4:
-        st.header("Classificação Molecular")
-        col_a, col_b = st.columns(2)
-        with col_a:
-            st.info("### 1. Hormônio Positivo")
-            st.write("Crescimento lento. Tratamento: Hormonioterapia.")
-            st.error("### 3. Triplo Negativo")
-            st.write("Agressivo. Tratamento: Quimioterapia essencial.")
-        with col_b:
-            st.warning("### 2. HER2 Positivo")
-            st.write("Tratamento: Terapia Alvo (Anti-HER2).")
-            # Foto da Anatomia
-            st.image("anatomia.png", caption="Anatomia da Mama", use_column_width=True)
+        st.header("🧬 Tipos Moleculares e Imunoistoquímica")
+        st.write("A análise molecular define a agressividade e o tratamento exato.")
+
+        # Tabela de Subtipos (Baseada no seu texto)
+        st.subheader("Classificação Molecular")
+        dados_moleculares = {
+            "Subtipo": ["Luminal A", "Luminal B", "HER2 Positivo", "Triplo Negativo (Basal)"],
+            "Agressividade": ["Baixa 🟢", "Moderada 🟡", "Alta 🔴", "Muito Alta ⚫"],
+            "Receptores (RE/RP)": ["Positivos (+++)", "Positivos (+/++)", "Negativos", "Negativos"],
+            "Proteína HER2": ["Negativo", "Negativo", "Positivo (+++)", "Negativo"],
+            "Ki-67 (Proliferação)": ["Baixo (<20%)", "Alto (>20%)", "Qualquer valor", "Alto"],
+            "Tratamento Principal": ["Hormonioterapia", "Quimio + Hormônio", "Terapia Alvo (Anti-HER2)", "Quimioterapia"]
+        }
+        df_mol = pd.DataFrame(dados_moleculares)
+        st.table(df_mol)
+
+        st.markdown("---")
+        st.subheader("🔍 Entendendo os Marcadores")
+        
+        c1, c2, c3 = st.columns(3)
+        
+        with c1:
+            st.info("**🗝️ Receptores Hormonais (RE/RP)**")
+            st.caption("A 'Fechadura' da célula")
+            st.write("Se o tumor tem receptor, ele se 'alimenta' de hormônios femininos. Bloquear o hormônio mata o tumor (Hormonioterapia).")
+        
+        with c2:
+            st.error("**⚡ Proteína HER2**")
+            st.caption("O 'Acelerador' da célula")
+            st.write("Proteína na membrana que manda a célula crescer rápido. Presente em 20% dos casos. Tratado com 'Terapia Alvo' (Trastuzumabe).")
+        
+        with c3:
+            st.warning("**📈 Marcador Ki-67**")
+            st.caption("A 'Velocidade' da célula")
+            st.write("Mede a taxa de divisão celular. Quanto maior a % (ex: 80%), mais rápido o tumor cresce e mais agressivo ele é.")
+
+        with st.expander("💊 Diferença: Quimioterapia vs. Terapia Alvo vs. Imunoterapia"):
+            st.markdown("""
+            * **💣 Quimioterapia:** "Bomba atômica". Mata qualquer célula que cresce rápido (tumor, mas também cabelo, unhas, intestino). Muitos efeitos colaterais.
+            * **🎯 Terapia Alvo:** "Tiro de precisão". Ataca apenas uma característica específica (ex: bloquear a proteína HER2). Menos tóxica, mas só funciona se o tumor tiver o alvo.
+            * **🛡️ Imunoterapia:** "Treinamento de defesa". Usa remédios para ensinar o sistema imune do paciente a reconhecer e atacar o câncer.
+            """)
 
     # --- ABA 5: TRATAMENTOS ---
     with aba5:
@@ -328,6 +417,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
