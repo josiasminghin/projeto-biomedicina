@@ -203,60 +203,119 @@ def mostrar_guia_didatico():
             **4. Invasão:** Elas produzem enzimas que destroem tecidos vizinhos e enganam o sistema imune.
             """)
 
-    # --- ABA 4: BIOLOGIA MOLECULAR (SUBTIPOS & IMUNOISTOQUÍMICA) ---
+    # --- ABA 4: GENÉTICA E BIOLOGIA MOLECULAR (ATUALIZADA) ---
     with aba4:
-        st.header("🧬 Tipos Moleculares e Imunoistoquímica")
-        st.write("A análise molecular define a agressividade e o tratamento exato.")
+        st.header("🧬 Genética e Biologia Molecular")
+        st.write("Mapeamento detalhado dos genes, cromossomos e vias de resistência.")
 
-        # Tabela de Subtipos (Baseada no seu texto)
-        st.subheader("Classificação Molecular")
-        dados_moleculares = {
-            "Subtipo": ["Luminal A", "Luminal B", "HER2 Positivo", "Triplo Negativo (Basal)"],
-            "Agressividade": ["Baixa 🟢", "Moderada 🟡", "Alta 🔴", "Muito Alta ⚫"],
-            "Receptores (RE/RP)": ["Positivos (+++)", "Positivos (+/++)", "Negativos", "Negativos"],
-            "Proteína HER2": ["Negativo", "Negativo", "Positivo (+++)", "Negativo"],
-            "Ki-67 (Proliferação)": ["Baixo (<20%)", "Alto (>20%)", "Qualquer valor", "Alto"],
-            "Tratamento Principal": ["Hormonioterapia", "Quimio + Hormônio", "Terapia Alvo (Anti-HER2)", "Quimioterapia"]
-        }
-        df_mol = pd.DataFrame(dados_moleculares)
-        st.table(df_mol)
+        # 1. OS GENES E CROMOSSOMOS (O CORAÇÃO DO PROJETO)
+        st.subheader("🔍 Os Guardiões do DNA (Genes Supressores)")
+        st.info("Clique nos cartões abaixo para entender a função e localização cromossômica.")
+
+        col_g1, col_g2 = st.columns(2)
+
+        with col_g1:
+            # BRCA1
+            with st.expander("🧬 BRCA1 (O Reparador Principal)"):
+                st.error("📍 Localização: Cromossomo 17q21")
+                st.markdown("""
+                * **Função:** Repara danos no DNA (fita dupla).
+                * **Risco:** Mutações aqui aumentam drasticamente o risco de câncer de mama (especialmente triplo-negativo) e ovário.
+                * **Herança:** Autossômica dominante (basta um pai passar o gene).
+                """)
+            
+            # TP53
+            with st.expander("🛡️ TP53 (O Guardião do Genoma)"):
+                st.error("📍 Localização: Cromossomo 17p13")
+                st.markdown("""
+                * **Função:** Sensor de estresse. Se o DNA quebra, ele para a célula para consertar ou manda ela se destruir (apoptose).
+                * **O Perigo:** É o gene mais mutado em cânceres (>50%). Sem ele, a célula vira um "zumbi" imortal.
+                * **Síndrome:** Li-Fraumeni.
+                """)
+
+        with col_g2:
+            # BRCA2
+            with st.expander("🧬 BRCA2 (O Consertador)"):
+                st.warning("📍 Localização: Cromossomo 13q12")
+                st.markdown("""
+                * **Função:** Atua na recombinação homóloga junto com a proteína RAD51.
+                * **Diferencial:** Fortemente ligado ao câncer de mama **masculino**, próstata e pâncreas.
+                * **Importância:** Pacientes com essa mutação respondem bem a inibidores de PARP.
+                """)
+
+            # CHEK2
+            with st.expander("👮 CHEK2 (O Inspetor de Segurança)"):
+                st.info("📍 Localização: Cromossomo 22q12")
+                st.markdown("""
+                * **Função:** "Inspetor". Ele pausa a divisão celular se achar erros.
+                * **Risco:** Moderado (aumenta 1.5x a 5x o risco).
+                * **Variante Comum:** c.1100delC (comum no norte europeu).
+                """)
 
         st.markdown("---")
-        st.subheader("🔍 Entendendo os Marcadores")
-        
-        c1, c2, c3 = st.columns(3)
-        
-        with c1:
-            st.info("**🗝️ Receptores Hormonais (RE/RP)**")
-            st.caption("A 'Fechadura' da célula")
-            st.write("Se o tumor tem receptor, ele se 'alimenta' de hormônios femininos. Bloquear o hormônio mata o tumor (Hormonioterapia).")
-        
-        with c2:
-            st.error("**⚡ Proteína HER2**")
-            st.caption("O 'Acelerador' da célula")
-            st.write("Proteína na membrana que manda a célula crescer rápido. Presente em 20% dos casos. Tratado com 'Terapia Alvo' (Trastuzumabe).")
-        
-        with c3:
-            st.warning("**📈 Marcador Ki-67**")
-            st.caption("A 'Velocidade' da célula")
-            st.write("Mede a taxa de divisão celular. Quanto maior a % (ex: 80%), mais rápido o tumor cresce e mais agressivo ele é.")
 
-        with st.expander("💊 Diferença: Quimioterapia vs. Terapia Alvo vs. Imunoterapia"):
+        # 2. BIOMARCADORES E VIAS DE RESISTÊNCIA
+        st.subheader("🔬 Biomarcadores e Vias de Resistência")
+        
+        tab_bio1, tab_bio2 = st.tabs(["Os 3 Pilares (RE/HER2/Ki67)", "A Via PI3K/AKT/mTOR"])
+        
+        with tab_bio1:
             st.markdown("""
-            * **💣 Quimioterapia:** "Bomba atômica". Mata qualquer célula que cresce rápido (tumor, mas também cabelo, unhas, intestino). Muitos efeitos colaterais.
-            * **🎯 Terapia Alvo:** "Tiro de precisão". Ataca apenas uma característica específica (ex: bloquear a proteína HER2). Menos tóxica, mas só funciona se o tumor tiver o alvo.
-            * **🛡️ Imunoterapia:** "Treinamento de defesa". Usa remédios para ensinar o sistema imune do paciente a reconhecer e atacar o câncer.
+            * **Receptor Hormonal (RH+):** A "fechadura" que usa estrogênio como combustível. (70% dos casos).
+            * **HER2 (ERBB2):** O "acelerador" na membrana. Se positivo (3+), o tumor cresce rápido.
+            * **Ki-67:** O velocímetro. Indica a taxa de proliferação celular.
+            """)
+        
+        with tab_bio2:
+            st.warning("⚠️ O Caminho da Resistência ao Tratamento")
+            st.markdown("""
+            **O Problema:** Mesmo tratando com hormonioterapia, o tumor pode "aprender" a sobreviver.
+            
+            **A Via PI3K / AKT / mTOR:**
+            É uma via de sinalização intracelular que, quando **hiperativada**, funciona como um "plano B" para o tumor crescer mesmo sem hormônios.
+            
+            * **Mutações PIK3CA:** Ocorrem em ~40% dos casos RH+.
+            * **Consequência:** O tumor ignora o bloqueio hormonal.
+            * **Solução:** Usar inibidores específicos dessa via junto com o tratamento hormonal.
             """)
 
-    # --- ABA 5: TRATAMENTOS ---
+    # --- ABA 5: TRATAMENTOS E MECANISMOS (ATUALIZADA) ---
     with aba5:
-        st.header("Tratamentos e Efeitos")
-        with st.expander("🔪 Cirurgia e Linfedema"):
-            st.write("Risco de inchaço no braço.")
-            st.image("linfedema.jpg",caption="Ilustração do Linfedema", use_column_width=True)           
-        with st.expander("☢️ Radioterapia"):
-            st.write("Vermelhidão e fadiga.")
-            st.image("radioterapia.png", caption="Ilustração da técnica Radioterapia", use_column_width=True)
+        st.header("💊 Tratamentos e Mecanismos de Ação")
+        st.write("Da quimioterapia clássica à medicina de precisão.")
+
+        # Explicação Didática: PARP e Letalidade Sintética
+        st.subheader("🎯 Terapia Alvo e Mecanismo PARP")
+        
+        col_t1, col_t2 = st.columns([1, 2])
+        
+        with col_t1:
+            st.info("**Conceito: Letalidade Sintética**")
+            st.caption("Como matar o câncer usando a própria falha dele.")
+        
+        with col_t2:
+            st.markdown("""
+            **1. O Cenário:** Células com mutação BRCA já não consertam bem o DNA (falha na recombinação homóloga). Elas dependem de uma "muleta" chamada enzima **PARP** para sobreviver.
+            
+            **2. O Golpe (Inibidor de PARP):** O remédio (como Olaparibe) "chuta" essa muleta.
+            
+            **3. Resultado:** Sem BRCA (quebrado geneticamente) e sem PARP (bloqueado pelo remédio), o DNA da célula tumoral colapsa e ela morre. Células saudáveis sobrevivem porque ainda têm o BRCA funcionando.
+            """)
+
+        st.markdown("---")
+
+        # Tabela Comparativa de Tratamentos
+        st.subheader("⚖️ Comparativo de Terapias")
+        
+        st.markdown("""
+        | Terapia | O que faz? | Exemplo |
+        | :--- | :--- | :--- |
+        | **Quimioterapia** | Mata tudo que cresce rápido (Bomba Atômica). | Doxorrubicina, Taxol. |
+        | **Hormonioterapia** | Bloqueia o "combustível" (estrogênio). | Tamoxifeno, Anastrozol. |
+        | **Terapia Alvo** | Ataca uma molécula específica (Tiro de Elite). | Trastuzumabe (Anti-HER2). |
+        | **Imunoterapia** | Treina o sistema imune para atacar. | Pembrolizumabe. |
+        | **Inibidor CDK4/6** | Trava o ciclo celular na fase G1. | Ribociclibe, Palbociclibe. |
+        """)
            
    # --- ABA 6: GLOSSÁRIO ---
     with aba6:
@@ -417,6 +476,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
