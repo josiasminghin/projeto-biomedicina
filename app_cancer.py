@@ -329,7 +329,7 @@ def mostrar_guia_didatico():
         """)
      # --- ABA 7: METODOLOGIA (SOBRE O PROJETO) ---
     with aba7:
-        st.header("Bastidores: Como o Sistema Funciona?")
+        st.header("📘 Metodologia Científica")
         st.write("A transparência é fundamental na ciência. Entenda a diferença entre o que a IA aprendeu sozinha e as regras médicas inseridas.")        
         st.markdown("---")
         col_met1, col_met2 = st.columns(2)
@@ -366,7 +366,33 @@ def mostrar_guia_didatico():
         1.  **Artificial:** Para ler a geometria e dar o diagnóstico visual.
         2.  **Humana (Biomédica):** Para correlacionar essa geometria com prováveis mutações genéticas baseadas na agressividade do fenótipo.
         """)
+        # --- AQUI COMEÇA A NOVA PARTE DO AUTOR (Linha 369 em diante) ---
+        st.markdown("---")  # Linha divisória
         
+        st.header("👤 Sobre o Autor")
+        
+        col_autor_img, col_autor_info = st.columns([1, 3])
+        
+        with col_autor_img:
+            # Foto de Perfil (lembre de subir perfil.jpg no GitHub)
+            url_perfil = "https://raw.githubusercontent.com/josiasminghin/projeto-biomedicina/main/perfil.jpg"
+            st.image(url_perfil, width=180, caption="Josias Minghin")
+            
+        with col_autor_info:
+            st.markdown("""
+            ### Josias Minghin
+            **🎓 Estudante de Biomedicina**
+            
+            **🏛️ UNIP - Universidade Paulista (EAD Flex)** *2º Semestre | São José do Rio Preto - SP*
+            
+            ---
+            
+            **🎯 Objetivo do Projeto:**
+            Este sistema foi desenvolvido como portfólio acadêmico, integrando **Patologia Digital**, **Genética Molecular** (BRCA1/2) e **Inteligência Artificial** para auxiliar no estudo e diagnóstico do Câncer de Mama.
+            """)
+            
+            # Botão de contato
+            st.link_button("✉️ Entre em Contato (Email)", "mailto:josiasmarques@gmail.com")
     # --- LÓGICA DO APP ORIGINAL (DIAGNÓSTICO) ---
 def mostrar_diagnostico_ia():
     # Cache para não treinar toda hora
@@ -476,6 +502,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
