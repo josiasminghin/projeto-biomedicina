@@ -13,8 +13,6 @@ st.set_page_config(
 import streamlit as st
 import base64
 
-# --- FUNÇÃO: FUNDO WEB + MENU PERSONALIZADO + REMOÇÃO DE HEADER ---
-# --- FUNÇÃO: ESTILO COMPLETO (FUNDO, MENU, HEADER E BORDAS) ---
 # --- FUNÇÃO: ESTILO COMPLETO (FUNDO, MENU, HEADER E BORDAS) ---
 def adicionar_fundo_local(imagem_arquivo):
     url_fundo_principal = "https://raw.githubusercontent.com/josiasminghin/projeto-biomedicina/main/fundo.jpg"
@@ -59,35 +57,34 @@ def adicionar_fundo_local(imagem_arquivo):
     footer {{visibility: hidden;}}
     .stDeployButton {{display:none;}}
 
-    /* 7. CABEÇALHO INTELIGENTE (Correção para Celular) */
+    /* 7. CABEÇALHO INTELIGENTE (TÉCNICA VISIBILIDADE SELETIVA) */
     
-    /* No COMPUTADOR (Telas grandes): Esconde tudo */
-    @media (min-width: 601px) {{
-        header[data-testid="stHeader"] {{
-            display: none !important;
-        }}
+    /* Primeiro: Esconde a linha colorida decorativa do topo */
+    [data-testid="stDecoration"] {{
+        display: none;
     }}
 
-    /* No CELULAR (Telas pequenas): Mostra a barra para o botão aparecer, mas limpa o resto */
-    @media (max-width: 600px) {{
-        header[data-testid="stHeader"] {{
-            background: transparent !important;
-            display: block !important; /* Traz a barra de volta */
-        }}
-        
-        /* Mas esconde os 3 pontinhos e o botão de gestão para não poluir */
-        [data-testid="stToolbar"] {{
-            visibility: hidden !important;
-            display: none !important;
-        }}
-        
-        /* Garante que o botão de abrir o menu fique visível */
-        [data-testid="baseButton-header"] {{
-            visibility: visible !important;
-        }}
+    /* Segundo: Torna a barra superior transparente e invisível */
+    header[data-testid="stHeader"] {{
+        background-color: transparent !important;
+        visibility: hidden !important;
     }}
 
-    /* 8. CONTORNO PARA CAIXAS DE SELEÇÃO (Destaque Visual) */
+    /* Terceiro: Esconde os ícones da direita (GitHub, Menu de 3 pontos) */
+    [data-testid="stToolbar"] {{
+        display: none !important;
+        visibility: hidden !important;
+    }}
+
+    /* Quarto: FORÇA O BOTÃO DE MENU (Hambúrguer) A APARECER */
+    /* Isso garante que ele apareça tanto no PC quanto no Celular */
+    [data-testid="baseButton-header"] {{
+        visibility: visible !important;
+        color: #000000 !important; /* Garante que o ícone seja preto */
+        top: 10px !important; /* Ajuste fino de posição */
+    }}
+
+    /* 8. CONTORNO PARA CAIXAS DE SELEÇÃO */
     div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {{
         border: 1px solid #4b5563 !important;
         background-color: #ffffff !important;
@@ -716,6 +713,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
