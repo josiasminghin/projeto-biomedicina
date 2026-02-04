@@ -465,8 +465,21 @@ def mostrar_guia_didatico():
             
             # Botão de contato
             st.link_button("✉️ Entre em Contato (Email)", "mailto:josiasmarques@gmail.com")
-    # --- LÓGICA DO APP ORIGINAL (DIAGNÓSTICO) ---
-# Barra Lateral de Parâmetros
+ # --- LÓGICA DO APP ORIGINAL (DIAGNÓSTICO) ---
+def mostrar_diagnostico_ia():
+    # Cache para não treinar toda hora
+    @st.cache_resource
+    def treinar_modelo():
+        data = load_breast_cancer()
+        df = pd.DataFrame(data.data, columns=data.feature_names)
+        df['target'] = data.target
+        model = RandomForestClassifier(n_estimators=100, random_state=42)
+        model.fit(df.drop('target', axis=1), df['target'])
+        return model, data.feature_names
+
+    model, feature_names = treinar_modelo()
+
+    # Barra Lateral de Parâmetros
     st.sidebar.markdown("---")
     st.sidebar.header("🔬 Parâmetros da Amostra")
     st.sidebar.caption("Ajuste os valores com precisão ou deslize:")
@@ -537,13 +550,12 @@ def mostrar_guia_didatico():
         "💧 Suavidade", 0.05, 0.25, 0.09, "suavidade", 0.001
     )
 
-   # 6. Concavidade
+    # 6. Concavidade
     concavidade = criar_controle(
         "🕳️ Concavidade", 0.0, 0.5, 0.04, "concavidade", 0.001
     )
-    # --- CÁLCULOS DE APOIO (CÓDIGO QUE FALTAVA) ---
-    # Sem isso, dá erro porque a IA não encontra essas variáveis
-    
+
+    # --- CÁLCULOS DE APOIO (CRUCIAL: NÃO APAGUE ISSO) ---
     area_calculada = area_media
     # Correção automática: Se raio grande e área pequena, recalcula
     if raio_medio > 15.0 and area_media < 700:
@@ -555,6 +567,7 @@ def mostrar_guia_didatico():
     fractal_dimension = 0.06
     symmetry = 0.18
 
+    # --- PREVISÃO DA IA ---
     input_data = [
         raio_medio, textura_media, perimetro_medio, area_calculada, smoothness, # Usa a área corrigida
         compactness, concavidade, concave_points, symmetry, fractal_dimension,
@@ -567,6 +580,7 @@ def mostrar_guia_didatico():
     prediction = model.predict([input_data])[0]
     probability = model.predict_proba([input_data])[0]
 
+    # --- VISUALIZAÇÃO DOS RESULTADOS ---
     st.title("🧬 Sistema de Apoio ao Diagnóstico (SAD)")
     st.markdown("---")
 
@@ -626,6 +640,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
