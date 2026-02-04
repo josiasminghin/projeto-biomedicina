@@ -13,7 +13,7 @@ st.set_page_config(
 import streamlit as st
 import base64
 
-# --- FUNÇÃO: ESTILO SEGURO (FUNDO E MENU FUNCIONAIS) ---
+# --- FUNÇÃO: ESTILO BLINDADO (ALTO CONTRASTE PARA CELULAR) ---
 def adicionar_fundo_local(imagem_arquivo):
     url_fundo_principal = "https://raw.githubusercontent.com/josiasminghin/projeto-biomedicina/main/fundo.jpg"
     
@@ -51,18 +51,57 @@ def adicionar_fundo_local(imagem_arquivo):
         }}
     }}
 
-    /* 5. LIMPEZA DO RODAPÉ (Isso é seguro esconder) */
+    /* 5. LIMPEZA GERAL */
     footer {{visibility: hidden;}}
     .stDeployButton {{display:none;}}
 
-    /* 6. CAIXAS DE SELEÇÃO COM CONTORNO */
+    /* 6. CABEÇALHO E BOTÃO DE MENU (CORREÇÃO TEMA ESCURO) */
+    
+    /* Mantemos a barra transparente, sem remover */
+    header[data-testid="stHeader"] {{
+        background-color: transparent !important;
+    }}
+
+    /* Escondemos a linha colorida e os ícones da direita */
+    [data-testid="stDecoration"], [data-testid="stToolbar"] {{
+        display: none !important;
+    }}
+
+    /* --- AQUI ESTÁ A CORREÇÃO PARA O TEMA ESCURO --- */
+    
+    /* Força o container do botão a aparecer */
+    [data-testid="stSidebarCollapsedControl"] {{
+        display: block !important;
+    }}
+    
+    /* Configura o BOTÃO para ser um quadrado BRANCO visível */
+    button[kind="header"] {{
+        display: block !important;
+        visibility: visible !important;
+        background-color: #FFFFFF !important; /* Fundo BRANCO SÓLIDO */
+        border: 1px solid #000000 !important; /* Borda PRETA fina para contraste */
+        border-radius: 8px !important;
+        width: 45px !important;
+        height: 45px !important;
+        opacity: 1 !important;
+        z-index: 9999 !important;
+        /* Sombra para garantir que se destaque em qualquer fundo */
+        box-shadow: 0px 2px 5px rgba(0,0,0,0.3) !important;
+    }}
+
+    /* Força a SETINHA (ícone SVG) a ser PRETA sempre */
+    button[kind="header"] svg {{
+        fill: #000000 !important;
+        color: #000000 !important;
+    }}
+
+    /* 7. CONTORNO PARA INPUTS */
     div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {{
         border: 1px solid #4b5563 !important;
         background-color: #ffffff !important;
         border-radius: 6px;
     }}
     
-    /* OBS: Não estamos escondendo o header. O menu vai aparecer nativamente. */
     </style>
     """,
     unsafe_allow_html=True
@@ -685,6 +724,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
