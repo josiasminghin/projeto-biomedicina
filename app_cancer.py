@@ -13,14 +13,14 @@ st.set_page_config(
 import streamlit as st
 import base64
 
-# --- FUNÇÃO: ESTILO ESTÁVEL (COM MENU FUNCIONANDO E SEM RODAPÉ) ---
+# --- FUNÇÃO: ESTILO BLINDADO (SEM MANAGE APP E CORREÇÃO NOTURNA) ---
 def adicionar_fundo_local(imagem_arquivo):
     url_fundo_principal = "https://raw.githubusercontent.com/josiasminghin/projeto-biomedicina/main/fundo.jpg"
     
     st.markdown(
     f"""
     <style>
-    /* 1. CONFIGURAÇÃO DO FUNDO PRINCIPAL */
+    /* 1. FUNDO PRINCIPAL */
     .stApp {{
         background-image: url("{url_fundo_principal}");
         background-attachment: fixed;
@@ -35,8 +35,8 @@ def adicionar_fundo_local(imagem_arquivo):
         border-right: 1px solid #d1d5db;
     }}
 
-    /* 3. TEXTOS */
-    h1, h2, h3, h4, h5, h6, p, li, div, span, label {{
+    /* 3. TEXTOS (Preto sempre) */
+    h1, h2, h3, h4, h5, h6, p, li, div, span, label, b, strong {{
         color: #000000 !important;
     }}
     [data-testid="stSidebar"] * {{
@@ -51,27 +51,71 @@ def adicionar_fundo_local(imagem_arquivo):
         }}
     }}
 
-    /* 5. LIMPEZA DO RODAPÉ E BOTÃO DEPLOY/MANAGE */
+    /* 5. REMOÇÃO TOTAL DE BOTÕES DE SISTEMA (Manage App, Deploy, Logs) */
+    
+    /* Esconde o rodapé padrão */
     footer {{visibility: hidden;}}
     
-    /* Esconde o botão 'Deploy' ou 'Manage App' lá de baixo */
-    .stDeployButton {{
+    /* Esconde o botão 'Deploy' (topo) */
+    .stDeployButton {{display: none !important;}}
+    
+    /* Esconde o botão 'Manage app' (canto inferior direito) */
+    div[data-testid="stStatusWidget"] {{
+        visibility: hidden !important;
+        height: 0px !important;
+        position: fixed;
+    }}
+    
+    /* Esconde os ícones de ferramentas (topo direito) */
+    [data-testid="stToolbar"] {{
         display: none !important;
     }}
     
-    /* Esconde o widget de status que as vezes aparece no canto */
-    div[data-testid="stStatusWidget"] {{
-        visibility: hidden !important;
+    /* Esconde a linha colorida decorativa */
+    [data-testid="stDecoration"] {{
+        display: none !important;
     }}
 
-    /* 6. CAIXAS DE SELEÇÃO COM CONTORNO */
+    /* 6. CORREÇÃO DO MENU HAMBÚRGUER (SOLUÇÃO TEMA ESCURO) */
+    
+    /* Mantém o cabeçalho transparente */
+    header[data-testid="stHeader"] {{
+        background: transparent !important;
+    }}
+
+    /* FORÇA O BOTÃO A TER COR, NÃO IMPORTA O TEMA */
+    button[kind="header"] {{
+        display: block !important;
+        visibility: visible !important;
+        background-color: #FFFFFF !important; /* Fundo SEMPRE BRANCO */
+        border: 1px solid #cccccc !important;
+        border-radius: 8px !important;
+        width: 44px !important;
+        height: 44px !important;
+        z-index: 99999 !important;
+        opacity: 1 !important;
+    }}
+
+    /* FORÇA A COR DO ÍCONE (SVG) PARA PRETO */
+    /* Isso impede que o modo noturno o deixe branco */
+    button[kind="header"] svg {{
+        fill: #000000 !important;
+        stroke: #000000 !important;
+    }}
+    
+    /* Garante que o container do botão esteja visível */
+    [data-testid="stSidebarCollapsedControl"] {{
+        display: block !important;
+        visibility: visible !important;
+    }}
+
+    /* 7. CONTORNO PARA INPUTS */
     div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {{
         border: 1px solid #4b5563 !important;
         background-color: #ffffff !important;
         border-radius: 6px;
     }}
     
-    /* NOTA: Não mexemos no header (cabeçalho) para não quebrar o celular */
     </style>
     """,
     unsafe_allow_html=True
@@ -694,6 +738,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
