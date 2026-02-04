@@ -680,6 +680,20 @@ Não substitui o diagnóstico clínico ou histopatológico.
             file_name=f"Laudo_BioOnco_{datetime.now().strftime('%Y%m%d_%H%M')}.txt",
             mime="text/plain"
         )
+# --- CONTROLE DE NAVEGAÇÃO (COLE ISTO NO FINAL DO ARQUIVO) ---
+# Aqui criamos o menu lateral que troca as telas
+st.sidebar.markdown("---") # Uma linha separadora antes do menu
+st.sidebar.title("Menu Principal")
+navegacao = st.sidebar.radio("Ir para:", ["🤖 Sistema Diagnóstico (IA)", "📚 Guia Didático: Tipos e Tratamentos"])
+
+if navegacao == "🤖 Sistema Diagnóstico (IA)":
+    mostrar_diagnostico_ia()
+else:
+    mostrar_guia_didatico()
+
+# Rodapé
+st.sidebar.markdown("---")
+st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
 
 
 
