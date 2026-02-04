@@ -466,42 +466,81 @@ def mostrar_guia_didatico():
             # Botão de contato
             st.link_button("✉️ Entre em Contato (Email)", "mailto:josiasmarques@gmail.com")
     # --- LÓGICA DO APP ORIGINAL (DIAGNÓSTICO) ---
-def mostrar_diagnostico_ia():
-    # Cache para não treinar toda hora
-    @st.cache_resource
-    def treinar_modelo():
-        data = load_breast_cancer()
-        df = pd.DataFrame(data.data, columns=data.feature_names)
-        df['target'] = data.target
-        model = RandomForestClassifier(n_estimators=100, random_state=42)
-        model.fit(df.drop('target', axis=1), df['target'])
-        return model, data.feature_names
-
-    model, feature_names = treinar_modelo()
-
-    # Barra Lateral de Parâmetros
+# Barra Lateral de Parâmetros
     st.sidebar.markdown("---")
     st.sidebar.header("🔬 Parâmetros da Amostra")
-    st.sidebar.caption("Ajuste conforme a microscopia:")
+    st.sidebar.caption("Ajuste os valores com precisão ou deslize:")
 
-    raio_medio = st.sidebar.slider("Raio Médio", 6.0, 30.0, 14.0, help="Média Benigno: ~12.1 | Maligno: ~17.4")
-    textura_media = st.sidebar.slider("Textura (Desvio)", 9.0, 40.0, 19.0)
-    perimetro_medio = st.sidebar.slider("Perímetro", 40.0, 190.0, 90.0)
-    area_media = st.sidebar.slider("Área Nuclear", 140.0, 2500.0, 600.0)
-    smoothness = st.sidebar.slider("Suavidade", 0.05, 0.25, 0.09)
-    concavidade = st.sidebar.slider("Concavidade", 0.0, 0.5, 0.04)
+    # --- FUNÇÃO MÁGICA PARA SINCRONIZAR CAIXA E BARRA ---
+    def criar_controle(label, min_v, max_v, default_v, key_base, step_v, help_txt=None):
+        # 1. Cria a "memória" para esse item se ela não existir
+        if f'{key_base}_val' not in st.session_state:
+            st.session_state[f'{key_base}_val'] = default_v
 
-   # --- CORREÇÃO DE LÓGICA (NOVO) ---
-    # Se o raio for grande (>15) e a área estiver pequena (<700), a gente corrige a matemática
-    area_calculada = area_media
-    if raio_medio > 15.0 and area_media < 700:
-        area_calculada = 3.1415 * (raio_medio ** 2) # Fórmula: Pi * R²
+        # 2. Funções que atualizam uma quando a outra muda
+        def update_from_num():
+            st.session_state[f'{key_base}_val'] = st.session_state[f'{key_base}_num']
+        
+        def update_from_slider():
+            st.session_state[f'{key_base}_val'] = st.session_state[f'{key_base}_slide']
 
-    # Lógica de preenchimento inteligente
-    compactness = concavidade
-    concave_points = concavidade
-    fractal_dimension = 0.06
-    symmetry = 0.18
+        # 3. Mostra a CAIXINHA (Number Input) em cima
+        val = st.sidebar.number_input(
+            label, 
+            min_value=float(min_v), 
+            max_value=float(max_v), 
+            value=float(st.session_state[f'{key_base}_val']),
+            step=step_v,
+            key=f'{key_base}_num',
+            on_change=update_from_num,
+            help=help_txt
+        )
+
+        # 4. Mostra a BARRINHA (Slider) logo abaixo
+        st.sidebar.slider(
+            "Ajuste Visual", # Texto oculto ou auxiliar
+            min_value=float(min_v), 
+            max_value=float(max_v), 
+            value=float(st.session_state[f'{key_base}_val']),
+            key=f'{key_base}_slide', 
+            on_change=update_from_slider,
+            label_visibility="collapsed" # Esconde o nome repetido para ficar limpo
+        )
+        
+        return val
+
+    # --- AGORA CRIAMOS OS CAMPOS USANDO A FUNÇÃO ---
+    
+    # 1. Raio Médio
+    raio_medio = criar_controle(
+        "📏 Raio Médio", 6.0, 30.0, 14.0, "raio", 0.1, 
+        "Média Benigno: ~12.1 | Maligno: ~17.4"
+    )
+
+    # 2. Textura
+    textura_media = criar_controle(
+        "🧶 Textura (Desvio)", 9.0, 40.0, 19.0, "textura", 0.1
+    )
+
+    # 3. Perímetro
+    perimetro_medio = criar_controle(
+        "⭕ Perímetro", 40.0, 190.0, 90.0, "perimetro", 0.5
+    )
+
+    # 4. Área Nuclear
+    area_media = criar_controle(
+        "🔵 Área Nuclear", 140.0, 2500.0, 600.0, "area", 10.0
+    )
+
+    # 5. Suavidade (Valores pequenos precisam de step menor)
+    smoothness = criar_controle(
+        "💧 Suavidade", 0.05, 0.25, 0.09, "suavidade", 0.001
+    )
+
+    # 6. Concavidade
+    concavidade = criar_controle(
+        "🕳️ Concavidade", 0.0, 0.5, 0.04, "concavidade", 0.001
+    )
 
     input_data = [
         raio_medio, textura_media, perimetro_medio, area_calculada, smoothness, # Usa a área corrigida
@@ -574,6 +613,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
