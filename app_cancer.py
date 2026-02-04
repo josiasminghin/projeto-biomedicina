@@ -13,40 +13,27 @@ st.set_page_config(
 import streamlit as st
 import base64
 
-# --- FUNÇÃO: FUNDO WEB + MENU VISÍVEL (CORRIGIDA) ---
-# --- FUNÇÃO: FUNDO WEB + MENU PERSONALIZADO ---
+# --- FUNÇÃO: FUNDO WEB + MENU PERSONALIZADO + REMOÇÃO DE HEADER ---
 def adicionar_fundo_local(imagem_arquivo):
     # Link direto para garantir que a imagem de fundo carregue
     url_fundo_principal = "https://raw.githubusercontent.com/josiasminghin/projeto-biomedicina/main/fundo.jpg"
     
-    # Se quiser uma imagem na barra lateral, coloque o link aqui:
-    # url_sidebar = "https://...sua_imagem_lateral.jpg"
-
     st.markdown(
     f"""
     <style>
-    /* 1. CONFIGURAÇÃO DO FUNDO PRINCIPAL (Onde fica o conteúdo) */
+    /* 1. CONFIGURAÇÃO DO FUNDO PRINCIPAL */
     .stApp {{
         background-image: url("{url_fundo_principal}");
         background-attachment: fixed;
         background-size: cover;
-        /* Um filtro branco para facilitar a leitura */
         background-color: rgba(255,255,255,0.90);
         background-blend-mode: overlay;
     }}
 
     /* 2. CONFIGURAÇÃO DA BARRA LATERAL (MENU) */
     section[data-testid="stSidebar"] {{
-        /* OPÇÃO A: Cor Sólida (Recomendado para leitura) */
-        background-color: #f0f4f8 !important; /* Um azul bem clarinho 'hospitalar' */
-        
-        /* OPÇÃO B: Imagem de Fundo (Se preferir imagem, descemente as linhas abaixo) */
-        /*
-        background-image: url("LINK_DA_SUA_IMAGEM_AQUI");
-        background-size: cover;
-        */
-        
-        border-right: 1px solid #d1d5db; /* Uma linha fina para separar */
+        background-color: #f0f4f8 !important;
+        border-right: 1px solid #d1d5db;
     }}
 
     /* 3. CORREÇÃO DE TEXTO GERAL */
@@ -54,8 +41,7 @@ def adicionar_fundo_local(imagem_arquivo):
         color: #000000 !important;
     }}
     
-    /* 4. AJUSTE ESPECÍFICO PARA TEXTO DA BARRA LATERAL */
-    /* Isso garante que o texto do menu fique bem preto e legível */
+    /* 4. AJUSTE PARA TEXTO DA BARRA LATERAL */
     [data-testid="stSidebar"] * {{
         color: #1a1a1a !important;
     }}
@@ -71,6 +57,15 @@ def adicionar_fundo_local(imagem_arquivo):
     /* 6. LIMPEZA VISUAL (Rodapé e Botão Deploy) */
     footer {{visibility: hidden;}}
     .stDeployButton {{display:none;}}
+
+    /* 7. REMOVER A BARRA SUPERIOR (HEADER) - ONDE FICA O GITHUB */
+    header[data-testid="stHeader"] {{
+        background: transparent;
+        display: none;
+    }}
+    .stAppHeader {{
+        display: none; /* Garante que suma em versões novas do Streamlit */
+    }}
     
     </style>
     """,
@@ -638,6 +633,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
