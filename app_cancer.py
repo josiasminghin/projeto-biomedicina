@@ -13,7 +13,7 @@ st.set_page_config(
 import streamlit as st
 import base64
 
-# --- FUNÇÃO: ESTILO COMPLETO (FUNDO, MENU, HEADER E BORDAS) ---
+# --- FUNÇÃO: ESTILO COMPLETO (VERSÃO INFALÍVEL PARA CELULAR) ---
 def adicionar_fundo_local(imagem_arquivo):
     url_fundo_principal = "https://raw.githubusercontent.com/josiasminghin/projeto-biomedicina/main/fundo.jpg"
     
@@ -57,31 +57,33 @@ def adicionar_fundo_local(imagem_arquivo):
     footer {{visibility: hidden;}}
     .stDeployButton {{display:none;}}
 
-    /* 7. CABEÇALHO INTELIGENTE (TÉCNICA VISIBILIDADE SELETIVA) */
+    /* 7. CABEÇALHO (ESTRATÉGIA: TRANSPARÊNCIA, NÃO REMOÇÃO) */
     
-    /* Primeiro: Esconde a linha colorida decorativa do topo */
-    [data-testid="stDecoration"] {{
-        display: none;
-    }}
-
-    /* Segundo: Torna a barra superior transparente e invisível */
+    /* A barra superior continua existindo, mas fica invisível (transparente) */
     header[data-testid="stHeader"] {{
-        background-color: transparent !important;
-        visibility: hidden !important;
+        background: transparent !important;
+        z-index: 1 !important; /* Garante que fique acima do fundo */
     }}
 
-    /* Terceiro: Esconde os ícones da direita (GitHub, Menu de 3 pontos) */
+    /* Removemos a linha colorida do topo (decoração) */
+    [data-testid="stDecoration"] {{
+        display: none !important;
+    }}
+
+    /* Escondemos APENAS os ícones da direita (Github, Menu, Deploy) */
     [data-testid="stToolbar"] {{
         display: none !important;
-        visibility: hidden !important;
     }}
-
-    /* Quarto: FORÇA O BOTÃO DE MENU (Hambúrguer) A APARECER */
-    /* Isso garante que ele apareça tanto no PC quanto no Celular */
+    
+    /* Garantimos que o botão do menu (esquerda) tenha cor preta forte */
+    /* E forçamos ele a ser visível */
+    button[kind="header"] {{
+        color: #000000 !important; /* Cor do ícone */
+        background-color: transparent !important;
+    }}
+    
     [data-testid="baseButton-header"] {{
-        visibility: visible !important;
-        color: #000000 !important; /* Garante que o ícone seja preto */
-        top: 10px !important; /* Ajuste fino de posição */
+        color: #000000 !important;
     }}
 
     /* 8. CONTORNO PARA CAIXAS DE SELEÇÃO */
@@ -713,6 +715,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
