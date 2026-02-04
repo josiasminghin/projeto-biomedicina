@@ -284,24 +284,24 @@ def mostrar_guia_didatico():
             
             # Tenta carregar a Imagem 3
             try:
-                st.image("Imagem3.jpg", caption="Interação entre Via AKT e Ciclo Celular", use_column_width=True)
+                st.image("imagem3.jpg", caption="Interação entre Via AKT e Ciclo Celular", use_column_width=True)
             except:
-                st.warning("⚠️ Faltando arquivo: Imagem3.jpg")
+                st.warning("⚠️ Faltando arquivo: imagem3.jpg")
             
             with st.expander("🔎 Ver Detalhes da Sinalização (Passo a Passo)"):
                 col_v1, col_v2 = st.columns(2)
                 with col_v1:
                     # Tenta carregar a Imagem 4
                     try:
-                        st.image("Imagem4.jpg", caption="Ativação da Cascata PI3K", use_column_width=True)
+                        st.image("imagem4.jpg", caption="Ativação da Cascata PI3K", use_column_width=True)
                     except:
-                        st.warning("⚠️ Faltando: Imagem4.jpg")
+                        st.warning("⚠️ Faltando: imagem4.jpg")
                 with col_v2:
                     # Tenta carregar a Imagem 5
                     try:
-                        st.image("Imagem5.jpg", caption="Proliferação Celular Resultante", use_column_width=True)
+                        st.image("imagem5.jpg", caption="Proliferação Celular Resultante", use_column_width=True)
                     except:
-                        st.warning("⚠️ Faltando: Imagem5.jpg")
+                        st.warning("⚠️ Faltando: imagem5.jpg")
    # --- ABA 5: TRATAMENTOS E MECANISMOS ---
     with aba5:
         st.header("💊 Tratamentos e Mecanismos de Ação")
@@ -541,6 +541,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
