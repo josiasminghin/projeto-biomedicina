@@ -484,20 +484,25 @@ def mostrar_diagnostico_ia():
     st.sidebar.header("🔬 Parâmetros da Amostra")
     st.sidebar.caption("Ajuste os valores com precisão ou deslize:")
 
-    # --- FUNÇÃO MÁGICA PARA SINCRONIZAR CAIXA E BARRA ---
+    # --- FUNÇÃO MÁGICA DE SINCRONIZAÇÃO (CORRIGIDA) ---
     def criar_controle(label, min_v, max_v, default_v, key_base, step_v, help_txt=None):
-        # 1. Cria a "memória" para esse item se ela não existir
+        # 1. Cria a memória inicial se não existir
         if f'{key_base}_val' not in st.session_state:
             st.session_state[f'{key_base}_val'] = default_v
 
-        # 2. Funções que atualizam uma quando a outra muda
+        # 2. Callback: Quando muda o NÚMERO, força o SLIDER a mudar
         def update_from_num():
-            st.session_state[f'{key_base}_val'] = st.session_state[f'{key_base}_num']
-        
-        def update_from_slider():
-            st.session_state[f'{key_base}_val'] = st.session_state[f'{key_base}_slide']
+            new_val = st.session_state[f'{key_base}_num']
+            st.session_state[f'{key_base}_val'] = new_val
+            st.session_state[f'{key_base}_slide'] = new_val # <--- FORÇA O SLIDER
 
-        # 3. Mostra a CAIXINHA (Number Input) em cima
+        # 3. Callback: Quando muda o SLIDER, força o NÚMERO a mudar
+        def update_from_slider():
+            new_val = st.session_state[f'{key_base}_slide']
+            st.session_state[f'{key_base}_val'] = new_val
+            st.session_state[f'{key_base}_num'] = new_val # <--- FORÇA O NÚMERO
+
+        # 4. Renderiza a CAIXINHA (Input)
         val = st.sidebar.number_input(
             label, 
             min_value=float(min_v), 
@@ -505,71 +510,44 @@ def mostrar_diagnostico_ia():
             value=float(st.session_state[f'{key_base}_val']),
             step=step_v,
             key=f'{key_base}_num',
-            on_change=update_from_num,
+            on_change=update_from_num, # Chama a função que atualiza tudo
             help=help_txt
         )
 
-        # 4. Mostra a BARRINHA (Slider) logo abaixo
+        # 5. Renderiza a BARRINHA (Slider)
         st.sidebar.slider(
-            "Ajuste Visual", # Texto oculto ou auxiliar
+            "Ajuste Visual",
             min_value=float(min_v), 
             max_value=float(max_v), 
             value=float(st.session_state[f'{key_base}_val']),
             key=f'{key_base}_slide', 
-            on_change=update_from_slider,
-            label_visibility="collapsed" # Esconde o nome repetido para ficar limpo
+            on_change=update_from_slider, # Chama a função que atualiza tudo
+            label_visibility="collapsed"
         )
         
         return val
 
-    # --- AGORA CRIAMOS OS CAMPOS USANDO A FUNÇÃO ---
-    
-    # 1. Raio Médio
-    raio_medio = criar_controle(
-        "📏 Raio Médio", 6.0, 30.0, 14.0, "raio", 0.1, 
-        "Média Benigno: ~12.1 | Maligno: ~17.4"
-    )
+    # --- CRIAÇÃO DOS CONTROLES ---
+    raio_medio = criar_controle("📏 Raio Médio", 6.0, 30.0, 14.0, "raio", 0.1, "Média Benigno: ~12.1 | Maligno: ~17.4")
+    textura_media = criar_controle("🧶 Textura (Desvio)", 9.0, 40.0, 19.0, "textura", 0.1)
+    perimetro_medio = criar_controle("⭕ Perímetro", 40.0, 190.0, 90.0, "perimetro", 0.5)
+    area_media = criar_controle("🔵 Área Nuclear", 140.0, 2500.0, 600.0, "area", 10.0)
+    smoothness = criar_controle("💧 Suavidade", 0.05, 0.25, 0.09, "suavidade", 0.001)
+    concavidade = criar_controle("🕳️ Concavidade", 0.0, 0.5, 0.04, "concavidade", 0.001)
 
-    # 2. Textura
-    textura_media = criar_controle(
-        "🧶 Textura (Desvio)", 9.0, 40.0, 19.0, "textura", 0.1
-    )
-
-    # 3. Perímetro
-    perimetro_medio = criar_controle(
-        "⭕ Perímetro", 40.0, 190.0, 90.0, "perimetro", 0.5
-    )
-
-    # 4. Área Nuclear
-    area_media = criar_controle(
-        "🔵 Área Nuclear", 140.0, 2500.0, 600.0, "area", 10.0
-    )
-
-    # 5. Suavidade (Valores pequenos precisam de step menor)
-    smoothness = criar_controle(
-        "💧 Suavidade", 0.05, 0.25, 0.09, "suavidade", 0.001
-    )
-
-    # 6. Concavidade
-    concavidade = criar_controle(
-        "🕳️ Concavidade", 0.0, 0.5, 0.04, "concavidade", 0.001
-    )
-
-    # --- CÁLCULOS DE APOIO (CRUCIAL: NÃO APAGUE ISSO) ---
+    # --- CÁLCULOS ESSENCIAIS (NÃO REMOVER) ---
     area_calculada = area_media
-    # Correção automática: Se raio grande e área pequena, recalcula
     if raio_medio > 15.0 and area_media < 700:
         area_calculada = 3.1415 * (raio_medio ** 2)
 
-    # Preenchendo os dados que faltam para a IA
     compactness = concavidade
     concave_points = concavidade
     fractal_dimension = 0.06
     symmetry = 0.18
 
-    # --- PREVISÃO DA IA ---
+    # --- PREVISÃO ---
     input_data = [
-        raio_medio, textura_media, perimetro_medio, area_calculada, smoothness, # Usa a área corrigida
+        raio_medio, textura_media, perimetro_medio, area_calculada, smoothness,
         compactness, concavidade, concave_points, symmetry, fractal_dimension,
         0.5, 1.0, 3.0, 40.0, 0.005, 
         0.02, 0.02, 0.01, 0.02, 0.004,
@@ -580,7 +558,7 @@ def mostrar_diagnostico_ia():
     prediction = model.predict([input_data])[0]
     probability = model.predict_proba([input_data])[0]
 
-    # --- VISUALIZAÇÃO DOS RESULTADOS ---
+    # --- EXIBIÇÃO ---
     st.title("🧬 Sistema de Apoio ao Diagnóstico (SAD)")
     st.markdown("---")
 
@@ -640,6 +618,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
