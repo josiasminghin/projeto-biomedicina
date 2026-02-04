@@ -537,10 +537,23 @@ def mostrar_guia_didatico():
         "💧 Suavidade", 0.05, 0.25, 0.09, "suavidade", 0.001
     )
 
-    # 6. Concavidade
+   # 6. Concavidade
     concavidade = criar_controle(
         "🕳️ Concavidade", 0.0, 0.5, 0.04, "concavidade", 0.001
     )
+    # --- CÁLCULOS DE APOIO (CÓDIGO QUE FALTAVA) ---
+    # Sem isso, dá erro porque a IA não encontra essas variáveis
+    
+    area_calculada = area_media
+    # Correção automática: Se raio grande e área pequena, recalcula
+    if raio_medio > 15.0 and area_media < 700:
+        area_calculada = 3.1415 * (raio_medio ** 2)
+
+    # Preenchendo os dados que faltam para a IA
+    compactness = concavidade
+    concave_points = concavidade
+    fractal_dimension = 0.06
+    symmetry = 0.18
 
     input_data = [
         raio_medio, textura_media, perimetro_medio, area_calculada, smoothness, # Usa a área corrigida
@@ -613,6 +626,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
