@@ -146,11 +146,11 @@ def mostrar_guia_didatico():
     # --- ABA 3: ATLAS DE LÂMINAS (TIPOS HISTOLÓGICOS) ---
     with aba3:
         st.header("🔬 Atlas de Patologia: Tipos Histológicos")
-        st.write("Visualização das diferenças morfológicas entre os principais tipos de câncer de mama.")
+        st.write("Visualização das diferenças morfológicas entre os principais tipos de câncer de mama..")
         
         # Seletor para escolher a lâmina
         tipo_cancer = st.selectbox(
-            "Escolha o Tipo Histológico para ver a lâmina:",
+            "Escolha o Tipo Histológico para ver a lâmina.:",
             ["Carcinoma Ductal In Situ (CDIS)", 
              "Carcinoma Lobular Invasivo", 
              "Carcinoma Inflamatório", 
@@ -641,6 +641,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
