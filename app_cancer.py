@@ -624,6 +624,8 @@ def mostrar_diagnostico_ia():
 
    # ... (o resto do código continua igual) ...
 
+    # ... (o resto do código continua igual) ...
+
     with col2:
         st.markdown("### Resumo")
         st.metric(label="Classificação", value="Maligno" if prediction == 0 else "Benigno")
@@ -678,6 +680,7 @@ Não substitui o diagnóstico clínico ou histopatológico.
             file_name=f"Laudo_BioOnco_{datetime.now().strftime('%Y%m%d_%H%M')}.txt",
             mime="text/plain"
         )
+
 
 
 
