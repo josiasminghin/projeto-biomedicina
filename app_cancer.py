@@ -279,29 +279,62 @@ def mostrar_guia_didatico():
             * **Solução:** Usar inibidores específicos dessa via junto com o tratamento hormonal.
             """)
             
-            # --- ADICIONANDO AS IMAGENS DAS VIAS (COM PROTEÇÃO ANTI-ERRO) ---
+            # --- IMAGEM GERAL ---
             st.markdown("### 🖼️ Esquema da Via de Sinalização")
-            
-            # Tenta carregar a Imagem 3
             try:
-                st.image("imagem3.jpg", caption="Interação entre Via AKT e Ciclo Celular", use_column_width=True)
+                st.image("Imagem3.jpg", caption="Interação entre Via AKT e Ciclo Celular", use_column_width=True)
             except:
-                st.warning("⚠️ Faltando arquivo: imagem3.jpg")
+                st.warning("⚠️ Faltando arquivo: Imagem3.jpg")
             
-            with st.expander("🔎 Ver Detalhes da Sinalização (Passo a Passo)"):
+            # --- DETALHES E NOVA EXPLICAÇÃO ---
+            with st.expander("🔎 Detalhes da Hiperativação e Consequências", expanded=True):
+                
+                # Colunas para Imagem 4 e 5
                 col_v1, col_v2 = st.columns(2)
                 with col_v1:
-                    # Tenta carregar a Imagem 4
+                    st.markdown("**1. Ativação da Cascata**")
                     try:
-                        st.image("imagem4.jpg", caption="Ativação da Cascata PI3K", use_column_width=True)
+                        st.image("Imagem4.jpg", use_column_width=True)
                     except:
-                        st.warning("⚠️ Faltando: imagem4.jpg")
+                        st.warning("⚠️ Faltando: Imagem4.jpg")
+                        
                 with col_v2:
-                    # Tenta carregar a Imagem 5
+                    st.markdown("**2. Proliferação Resultante**")
                     try:
-                        st.image("imagem5.jpg", caption="Proliferação Celular Resultante", use_column_width=True)
+                        st.image("Imagem5.jpg", use_column_width=True)
+                        st.caption("👀 **Obs:** As vias e sinais ilustrados em **roxo** representam a hiperativação.")
                     except:
-                        st.warning("⚠️ Faltando: imagem5.jpg")
+                        st.warning("⚠️ Faltando: Imagem5.jpg")
+
+                st.markdown("---")
+                
+                # --- O TEXTO NOVO QUE VOCÊ PEDIU ---
+                st.subheader("💥 Impactos da Hiperativação do AKT")
+                
+                st.write("""
+                Uma vez que ocorre a hiperativação, a Via do AKT promove o **crescimento celular descontrolado** e a **sobrevivência celular**. 
+                Esses processos permitem que as células cancerígenas evitem os mecanismos normais que levariam à sua morte (apoptose), resultando na progressão da doença.
+                """)
+
+                col_lista, col_impacto = st.columns(2)
+                
+                with col_lista:
+                    st.markdown("##### 📉 Efeitos Posteriores")
+                    st.markdown("""
+                    A hiperativação amplifica a sinalização de muitos efeitos associados à resistência:
+                    * 🔴 **Proliferação celular** aumentada.
+                    * 🔄 **Progressão desregulada** do ciclo celular.
+                    * ⬆️ Aumento do nível de **expressão do ER**.
+                    * 📢 **Amplificação da sinalização** do ER.
+                    """)
+                
+                with col_impacto:
+                    st.info("""
+                    **💡 Ponto Crítico:**
+                    O impacto da hiperativação pode ser **independente do Receptor de Estrogênio (ER)**. 
+                    
+                    Isso significa que, mesmo bloqueando o estrogênio com remédios, a célula tumoral continua se dividindo através dessa via alternativa.
+                    """)
    # --- ABA 5: TRATAMENTOS E MECANISMOS ---
     with aba5:
         st.header("💊 Tratamentos e Mecanismos de Ação")
@@ -541,6 +574,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
