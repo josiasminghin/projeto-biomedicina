@@ -290,7 +290,7 @@ def mostrar_guia_didatico():
                 with col_v2:
                     st.image("Imagem5.jpg", caption="Proliferação Celular Resultante", use_container_width=True)
 
-    # --- ABA 5: TRATAMENTOS E MECANISMOS (ATUALIZADA) ---
+    # --- ABA 5: TRATAMENTOS E MECANISMOS ---
     with aba5:
         st.header("💊 Tratamentos e Mecanismos de Ação")
         st.write("Da quimioterapia clássica à medicina de precisão.")
@@ -304,7 +304,7 @@ def mostrar_guia_didatico():
             st.info("**Conceito: Letalidade Sintética**")
             st.caption("Como matar o câncer usando a própria falha dele.")
         
-    with col_t2:
+        with col_t2:
             st.markdown("""
             **1. O Cenário:** Células com mutação BRCA já não consertam bem o DNA (falha na recombinação homóloga). Elas dependem de uma "muleta" chamada enzima **PARP** para sobreviver.
             
@@ -313,19 +313,24 @@ def mostrar_guia_didatico():
             **3. Resultado:** Sem BRCA (quebrado geneticamente) e sem PARP (bloqueado pelo remédio), o DNA da célula tumoral colapsa e ela morre. Células saudáveis sobrevivem porque ainda têm o BRCA funcionando.
             """)
             
-            # --- ADICIONANDO AS IMAGENS DA PARP (NOMES SIMPLIFICADOS) ---
+            # --- ADICIONANDO AS IMAGENS DA PARP ---
             st.markdown("---")
-            # Tente carregar a primeira imagem
+            
+            # Imagem 1
             try:
                 st.image("parp_mecanismo.jpg", caption="Como a PARP repara o DNA normalmente", use_column_width=True)
             except:
                 st.warning("⚠️ Imagem 'parp_mecanismo.jpg' não encontrada.")
 
-            # Tente carregar a segunda imagem
+            # Imagem 2
             try:
                 st.image("parp_inibidor.jpg", caption="Ação do medicamento levando à morte celular", use_column_width=True)
             except:
                 st.warning("⚠️ Imagem 'parp_inibidor.jpg' não encontrada.")
+
+        # --- AQUI É O PULO DO GATO: VOLTAMOS A MARGEM DA ESQUERDA (FORA DA COLUNA) ---
+        st.markdown("---")
+
         # Tabela Comparativa de Tratamentos
         st.subheader("⚖️ Comparativo de Terapias")
         
@@ -524,6 +529,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
