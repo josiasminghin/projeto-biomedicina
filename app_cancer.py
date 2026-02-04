@@ -13,7 +13,7 @@ st.set_page_config(
 import streamlit as st
 import base64
 
-# --- FUNÇÃO: ESTILO BLINDADO (SEM MANAGE APP E CORREÇÃO NOTURNA) ---
+# --- FUNÇÃO: ESTILO VISUAL (CORREÇÃO FINAL PARA CELULAR E MANAGE APP) ---
 def adicionar_fundo_local(imagem_arquivo):
     url_fundo_principal = "https://raw.githubusercontent.com/josiasminghin/projeto-biomedicina/main/fundo.jpg"
     
@@ -35,7 +35,7 @@ def adicionar_fundo_local(imagem_arquivo):
         border-right: 1px solid #d1d5db;
     }}
 
-    /* 3. TEXTOS (Preto sempre) */
+    /* 3. TEXTOS (Preto Forte) */
     h1, h2, h3, h4, h5, h6, p, li, div, span, label, b, strong {{
         color: #000000 !important;
     }}
@@ -43,70 +43,49 @@ def adicionar_fundo_local(imagem_arquivo):
         color: #1a1a1a !important;
     }}
 
-    /* 4. AJUSTE PARA CELULAR */
-    @media only screen and (max-width: 600px) {{
-        .stApp {{
-            background-attachment: scroll;
-            background-size: cover; 
-        }}
-    }}
-
-    /* 5. REMOÇÃO TOTAL DE BOTÕES DE SISTEMA (Manage App, Deploy, Logs) */
-    
-    /* Esconde o rodapé padrão */
-    footer {{visibility: hidden;}}
-    
-    /* Esconde o botão 'Deploy' (topo) */
-    .stDeployButton {{display: none !important;}}
-    
-    /* Esconde o botão 'Manage app' (canto inferior direito) */
+    /* 4. ESCONDER O BOTÃO 'MANAGE APP' (Rodapé direito) */
     div[data-testid="stStatusWidget"] {{
         visibility: hidden !important;
-        height: 0px !important;
-        position: fixed;
-    }}
-    
-    /* Esconde os ícones de ferramentas (topo direito) */
-    [data-testid="stToolbar"] {{
         display: none !important;
     }}
     
-    /* Esconde a linha colorida decorativa */
-    [data-testid="stDecoration"] {{
-        display: none !important;
-    }}
+    /* 5. ESCONDER O RODAPÉ E DEPLOY */
+    footer {{visibility: hidden;}}
+    .stDeployButton {{display: none !important;}}
 
-    /* 6. CORREÇÃO DO MENU HAMBÚRGUER (SOLUÇÃO TEMA ESCURO) */
+    /* 6. CORREÇÃO DO MENU PARA CELULAR (TEMA CLARO E ESCURO) */
     
-    /* Mantém o cabeçalho transparente */
+    /* Passo A: Deixar a barra superior transparente (NÃO REMOVER) */
     header[data-testid="stHeader"] {{
         background: transparent !important;
     }}
-
-    /* FORÇA O BOTÃO A TER COR, NÃO IMPORTA O TEMA */
+    
+    /* Passo B: Esconder só a decoração e os itens da direita */
+    [data-testid="stDecoration"], [data-testid="stToolbar"] {{
+        display: none !important;
+    }}
+    
+    /* Passo C: CRIAR UM BOTÃO 'FÍSICO' PARA O MENU */
+    /* Isso cria um quadrado branco visível em qualquer tema */
     button[kind="header"] {{
         display: block !important;
         visibility: visible !important;
-        background-color: #FFFFFF !important; /* Fundo SEMPRE BRANCO */
-        border: 1px solid #cccccc !important;
+        background-color: #FFFFFF !important; /* Fundo Branco */
+        border: 1px solid #cccccc !important; /* Bordinha cinza */
         border-radius: 8px !important;
+        opacity: 1 !important;
+        z-index: 99999 !important;
         width: 44px !important;
         height: 44px !important;
-        z-index: 99999 !important;
-        opacity: 1 !important;
+        position: fixed; /* Fixa no canto */
+        top: 10px;
+        left: 10px;
     }}
 
-    /* FORÇA A COR DO ÍCONE (SVG) PARA PRETO */
-    /* Isso impede que o modo noturno o deixe branco */
+    /* Passo D: FORÇAR O ÍCONE (SETA) A SER PRETO */
     button[kind="header"] svg {{
         fill: #000000 !important;
         stroke: #000000 !important;
-    }}
-    
-    /* Garante que o container do botão esteja visível */
-    [data-testid="stSidebarCollapsedControl"] {{
-        display: block !important;
-        visibility: visible !important;
     }}
 
     /* 7. CONTORNO PARA INPUTS */
@@ -115,7 +94,6 @@ def adicionar_fundo_local(imagem_arquivo):
         background-color: #ffffff !important;
         border-radius: 6px;
     }}
-    
     </style>
     """,
     unsafe_allow_html=True
@@ -741,6 +719,7 @@ st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
 
 
    
+
 
 
 
