@@ -13,7 +13,7 @@ st.set_page_config(
 import streamlit as st
 import base64
 
-# --- FUNÇÃO: ESTILO VISUAL (CORREÇÃO FINAL PARA CELULAR E MANAGE APP) ---
+# --- FUNÇÃO: ESTILO FUNCIONAL (PRIORIDADE: MENU FUNCIONANDO) ---
 def adicionar_fundo_local(imagem_arquivo):
     url_fundo_principal = "https://raw.githubusercontent.com/josiasminghin/projeto-biomedicina/main/fundo.jpg"
     
@@ -25,7 +25,7 @@ def adicionar_fundo_local(imagem_arquivo):
         background-image: url("{url_fundo_principal}");
         background-attachment: fixed;
         background-size: cover;
-        background-color: rgba(255,255,255,0.90);
+        background-color: rgba(255,255,255,0.92);
         background-blend-mode: overlay;
     }}
 
@@ -35,7 +35,7 @@ def adicionar_fundo_local(imagem_arquivo):
         border-right: 1px solid #d1d5db;
     }}
 
-    /* 3. TEXTOS (Preto Forte) */
+    /* 3. TEXTOS LEGÍVEIS */
     h1, h2, h3, h4, h5, h6, p, li, div, span, label, b, strong {{
         color: #000000 !important;
     }}
@@ -43,49 +43,52 @@ def adicionar_fundo_local(imagem_arquivo):
         color: #1a1a1a !important;
     }}
 
-    /* 4. ESCONDER O BOTÃO 'MANAGE APP' (Rodapé direito) */
+    /* 4. ELIMINAÇÃO DO 'MANAGE APP' E RODAPÉS */
+    /* Alvo 1: O Widget de Status (canto inferior direito) */
     div[data-testid="stStatusWidget"] {{
+        display: none !important;
+        visibility: hidden !important;
+    }}
+    
+    /* Alvo 2: O botão de Deploy (canto superior direito) */
+    .stDeployButton {{
+        display: none !important;
+    }}
+    
+    /* Alvo 3: Rodapé padrão */
+    footer {{
         visibility: hidden !important;
         display: none !important;
     }}
     
-    /* 5. ESCONDER O RODAPÉ E DEPLOY */
-    footer {{visibility: hidden;}}
-    .stDeployButton {{display: none !important;}}
+    /* Alvo 4: Qualquer visualizador de app embutido */
+    div[class*="viewerBadge"] {{
+        display: none !important;
+    }}
 
-    /* 6. CORREÇÃO DO MENU PARA CELULAR (TEMA CLARO E ESCURO) */
-    
-    /* Passo A: Deixar a barra superior transparente (NÃO REMOVER) */
+    /* 5. CABEÇALHO (MODO SEGURO) */
+    /* Não vamos esconder o header inteiro, pois isso quebra o menu no celular. */
+    /* Vamos apenas deixá-lo transparente para não ficar feio. */
     header[data-testid="stHeader"] {{
         background: transparent !important;
     }}
-    
-    /* Passo B: Esconder só a decoração e os itens da direita */
-    [data-testid="stDecoration"], [data-testid="stToolbar"] {{
+
+    /* Esconde a linha colorida (arco-íris) do topo */
+    [data-testid="stDecoration"] {{
         display: none !important;
     }}
     
-    /* Passo C: CRIAR UM BOTÃO 'FÍSICO' PARA O MENU */
-    /* Isso cria um quadrado branco visível em qualquer tema */
-    button[kind="header"] {{
-        display: block !important;
-        visibility: visible !important;
-        background-color: #FFFFFF !important; /* Fundo Branco */
-        border: 1px solid #cccccc !important; /* Bordinha cinza */
-        border-radius: 8px !important;
-        opacity: 1 !important;
-        z-index: 99999 !important;
-        width: 44px !important;
-        height: 44px !important;
-        position: fixed; /* Fixa no canto */
-        top: 10px;
-        left: 10px;
-    }}
-
-    /* Passo D: FORÇAR O ÍCONE (SETA) A SER PRETO */
+    /* 6. GARANTIA DE VISIBILIDADE DO BOTÃO MENU */
+    /* Forçamos o ícone a ser PRETO para não sumir em fundos claros */
     button[kind="header"] svg {{
         fill: #000000 !important;
         stroke: #000000 !important;
+    }}
+    
+    /* Se o celular estiver em modo escuro, o botão ganha fundo branco para contraste */
+    button[kind="header"] {{
+        background-color: rgba(255, 255, 255, 0.5) !important;
+        border-radius: 5px;
     }}
 
     /* 7. CONTORNO PARA INPUTS */
@@ -719,6 +722,7 @@ st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
 
 
    
+
 
 
 
