@@ -14,8 +14,8 @@ import streamlit as st
 import base64
 
 # --- FUNÇÃO: FUNDO WEB + MENU PERSONALIZADO + REMOÇÃO DE HEADER ---
+# --- FUNÇÃO: ESTILO COMPLETO (FUNDO, MENU, HEADER E BORDAS) ---
 def adicionar_fundo_local(imagem_arquivo):
-    # Link direto para garantir que a imagem de fundo carregue
     url_fundo_principal = "https://raw.githubusercontent.com/josiasminghin/projeto-biomedicina/main/fundo.jpg"
     
     st.markdown(
@@ -58,13 +58,21 @@ def adicionar_fundo_local(imagem_arquivo):
     footer {{visibility: hidden;}}
     .stDeployButton {{display:none;}}
 
-    /* 7. REMOVER A BARRA SUPERIOR (HEADER) - ONDE FICA O GITHUB */
+    /* 7. REMOVER A BARRA SUPERIOR (HEADER) */
     header[data-testid="stHeader"] {{
         background: transparent;
         display: none;
     }}
     .stAppHeader {{
-        display: none; /* Garante que suma em versões novas do Streamlit */
+        display: none;
+    }}
+
+    /* 8. CONTORNO PARA CAIXAS DE SELEÇÃO (Destaque Visual) */
+    /* Isso afeta o Selectbox (Tipos) e os NumberInputs (Sidebar) */
+    div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {{
+        border: 1px solid #4b5563 !important; /* Borda Cinza Escuro */
+        background-color: #ffffff !important;
+        border-radius: 6px; /* Cantos arredondados */
     }}
     
     </style>
@@ -633,6 +641,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
