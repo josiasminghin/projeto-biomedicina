@@ -15,6 +15,7 @@ import base64
 
 # --- FUNÇÃO: FUNDO WEB + MENU PERSONALIZADO + REMOÇÃO DE HEADER ---
 # --- FUNÇÃO: ESTILO COMPLETO (FUNDO, MENU, HEADER E BORDAS) ---
+# --- FUNÇÃO: ESTILO COMPLETO (FUNDO, MENU, HEADER E BORDAS) ---
 def adicionar_fundo_local(imagem_arquivo):
     url_fundo_principal = "https://raw.githubusercontent.com/josiasminghin/projeto-biomedicina/main/fundo.jpg"
     
@@ -46,7 +47,7 @@ def adicionar_fundo_local(imagem_arquivo):
         color: #1a1a1a !important;
     }}
 
-    /* 5. AJUSTE PARA CELULAR */
+    /* 5. AJUSTE PARA CELULAR (Fundo) */
     @media only screen and (max-width: 600px) {{
         .stApp {{
             background-attachment: scroll;
@@ -58,21 +59,39 @@ def adicionar_fundo_local(imagem_arquivo):
     footer {{visibility: hidden;}}
     .stDeployButton {{display:none;}}
 
-    /* 7. REMOVER A BARRA SUPERIOR (HEADER) */
-    header[data-testid="stHeader"] {{
-        background: transparent;
-        display: none;
+    /* 7. CABEÇALHO INTELIGENTE (Correção para Celular) */
+    
+    /* No COMPUTADOR (Telas grandes): Esconde tudo */
+    @media (min-width: 601px) {{
+        header[data-testid="stHeader"] {{
+            display: none !important;
+        }}
     }}
-    .stAppHeader {{
-        display: none;
+
+    /* No CELULAR (Telas pequenas): Mostra a barra para o botão aparecer, mas limpa o resto */
+    @media (max-width: 600px) {{
+        header[data-testid="stHeader"] {{
+            background: transparent !important;
+            display: block !important; /* Traz a barra de volta */
+        }}
+        
+        /* Mas esconde os 3 pontinhos e o botão de gestão para não poluir */
+        [data-testid="stToolbar"] {{
+            visibility: hidden !important;
+            display: none !important;
+        }}
+        
+        /* Garante que o botão de abrir o menu fique visível */
+        [data-testid="baseButton-header"] {{
+            visibility: visible !important;
+        }}
     }}
 
     /* 8. CONTORNO PARA CAIXAS DE SELEÇÃO (Destaque Visual) */
-    /* Isso afeta o Selectbox (Tipos) e os NumberInputs (Sidebar) */
     div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {{
-        border: 1px solid #4b5563 !important; /* Borda Cinza Escuro */
+        border: 1px solid #4b5563 !important;
         background-color: #ffffff !important;
-        border-radius: 6px; /* Cantos arredondados */
+        border-radius: 6px;
     }}
     
     </style>
@@ -697,6 +716,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
