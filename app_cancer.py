@@ -622,25 +622,63 @@ def mostrar_diagnostico_ia():
                 * Manter rotina de rastreamento.
             """)
 
+   # ... (o resto do código continua igual) ...
+
     with col2:
         st.markdown("### Resumo")
         st.metric(label="Classificação", value="Maligno" if prediction == 0 else "Benigno")
-        st.progress(int(probability[0]*100))
-        st.caption(f"Raio: {raio_medio} µm | Concavidade: {concavidade}")
+        
+        # Barra de progresso (Malignidade)
+        prob_maligno = int(probability[0]*100)
+        st.progress(prob_maligno)
+        st.caption(f"Prob. Malignidade: {prob_maligno}%")
+        
+        st.markdown("---")
 
-# --- CONTROLE DE NAVEGAÇÃO ---
-# Aqui criamos o menu lateral que troca as telas
-st.sidebar.title("Menu Principal")
-navegacao = st.sidebar.radio("Ir para:", ["🤖 Sistema Diagnóstico (IA)", "📚 Guia Didático: Tipos e Tratamentos"])
+        # --- GERAÇÃO DO LAUDO (NOVO) ---
+        from datetime import datetime
+        
+        # 1. Pegar a data e hora atual
+        data_hora = datetime.now().strftime("%d/%m/%Y às %H:%M")
+        
+        # 2. Definir o texto do resultado
+        resultado_texto = "MALIGNO" if prediction == 0 else "BENIGNO"
+        
+        # 3. Criar o conteúdo do arquivo de texto (Formatado)
+        laudo_texto = f"""
+🏥 SAD - BioOnco | Relatório de Análise Computacional
+=====================================================
+Data da Emissão: {data_hora}
+Responsável Técnico: Josias Minghin (Acad. Biomedicina)
 
-if navegacao == "🤖 Sistema Diagnóstico (IA)":
-    mostrar_diagnostico_ia()
-else:
-    mostrar_guia_didatico()
+🔬 PARÂMETROS DA AMOSTRA (MICROSCOPIA):
+-----------------------------------------------------
+- Raio Médio:       {raio_medio:.2f}
+- Textura (Desvio): {textura_media:.2f}
+- Perímetro:        {perimetro_medio:.2f}
+- Área Nuclear:     {area_media:.2f}
+- Suavidade:        {smoothness:.3f}
+- Concavidade:      {concavidade:.3f}
 
-# Rodapé
-st.sidebar.markdown("---")
-st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+🧠 ANÁLISE DE INTELIGÊNCIA ARTIFICIAL:
+-----------------------------------------------------
+>> CLASSIFICAÇÃO:   {resultado_texto}
+>> PROBABILIDADE:   {probability[0 if prediction == 0 else 1]*100:.1f}% de certeza
+
+📋 NOTA TÉCNICA:
+Este relatório é gerado por algoritmos de Machine Learning 
+(Random Forest) baseado no Dataset Wisconsin. 
+Não substitui o diagnóstico clínico ou histopatológico.
+=====================================================
+"""
+        # 4. Botão de Download
+        st.download_button(
+            label="📄 Baixar Laudo Completo",
+            data=laudo_texto,
+            file_name=f"Laudo_BioOnco_{datetime.now().strftime('%Y%m%d_%H%M')}.txt",
+            mime="text/plain"
+        )
+
 
 
 
