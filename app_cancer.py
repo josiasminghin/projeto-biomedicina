@@ -279,16 +279,29 @@ def mostrar_guia_didatico():
             * **Solução:** Usar inibidores específicos dessa via junto com o tratamento hormonal.
             """)
             
-            # --- ADICIONANDO AS IMAGENS DAS VIAS ---
+            # --- ADICIONANDO AS IMAGENS DAS VIAS (COM PROTEÇÃO ANTI-ERRO) ---
             st.markdown("### 🖼️ Esquema da Via de Sinalização")
-            st.image("Imagem3.jpg", caption="Interação entre Via AKT e Ciclo Celular", use_container_width=True)
+            
+            # Tenta carregar a Imagem 3
+            try:
+                st.image("Imagem3.jpg", caption="Interação entre Via AKT e Ciclo Celular", use_column_width=True)
+            except:
+                st.warning("⚠️ Faltando arquivo: Imagem3.jpg")
             
             with st.expander("🔎 Ver Detalhes da Sinalização (Passo a Passo)"):
                 col_v1, col_v2 = st.columns(2)
                 with col_v1:
-                    st.image("Imagem4.jpg", caption="Ativação da Cascata PI3K", use_container_width=True)
+                    # Tenta carregar a Imagem 4
+                    try:
+                        st.image("Imagem4.jpg", caption="Ativação da Cascata PI3K", use_column_width=True)
+                    except:
+                        st.warning("⚠️ Faltando: Imagem4.jpg")
                 with col_v2:
-                    st.image("Imagem5.jpg", caption="Proliferação Celular Resultante", use_container_width=True)
+                    # Tenta carregar a Imagem 5
+                    try:
+                        st.image("Imagem5.jpg", caption="Proliferação Celular Resultante", use_column_width=True)
+                    except:
+                        st.warning("⚠️ Faltando: Imagem5.jpg")
    # --- ABA 5: TRATAMENTOS E MECANISMOS ---
     with aba5:
         st.header("💊 Tratamentos e Mecanismos de Ação")
@@ -528,6 +541,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
