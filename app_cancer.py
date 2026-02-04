@@ -278,6 +278,17 @@ def mostrar_guia_didatico():
             * **Consequência:** O tumor ignora o bloqueio hormonal.
             * **Solução:** Usar inibidores específicos dessa via junto com o tratamento hormonal.
             """)
+            
+            # --- ADICIONANDO AS IMAGENS DAS VIAS ---
+            st.markdown("### 🖼️ Esquema da Via de Sinalização")
+            st.image("Imagem3.jpg", caption="Interação entre Via AKT e Ciclo Celular", use_container_width=True)
+            
+            with st.expander("🔎 Ver Detalhes da Sinalização (Passo a Passo)"):
+                col_v1, col_v2 = st.columns(2)
+                with col_v1:
+                    st.image("Imagem4.jpg", caption="Ativação da Cascata PI3K", use_container_width=True)
+                with col_v2:
+                    st.image("Imagem5.jpg", caption="Proliferação Celular Resultante", use_container_width=True)
 
     # --- ABA 5: TRATAMENTOS E MECANISMOS (ATUALIZADA) ---
     with aba5:
@@ -293,7 +304,7 @@ def mostrar_guia_didatico():
             st.info("**Conceito: Letalidade Sintética**")
             st.caption("Como matar o câncer usando a própria falha dele.")
         
-        with col_t2:
+    with col_t2:
             st.markdown("""
             **1. O Cenário:** Células com mutação BRCA já não consertam bem o DNA (falha na recombinação homóloga). Elas dependem de uma "muleta" chamada enzima **PARP** para sobreviver.
             
@@ -301,8 +312,11 @@ def mostrar_guia_didatico():
             
             **3. Resultado:** Sem BRCA (quebrado geneticamente) e sem PARP (bloqueado pelo remédio), o DNA da célula tumoral colapsa e ela morre. Células saudáveis sobrevivem porque ainda têm o BRCA funcionando.
             """)
-
-        st.markdown("---")
+            
+            # --- ADICIONANDO AS IMAGENS DA PARP ---
+            st.markdown("---")
+            st.image("Mecanismo de ação da PARP.jpg", caption="Como a PARP repara o DNA normalmente", use_container_width=True)
+            st.image("Ação dos medicamentos inibidores da PARP.jpg", caption="Ação do medicamento levando à morte celular", use_container_width=True)
 
         # Tabela Comparativa de Tratamentos
         st.subheader("⚖️ Comparativo de Terapias")
@@ -502,6 +516,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
