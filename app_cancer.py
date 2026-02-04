@@ -13,7 +13,7 @@ st.set_page_config(
 import streamlit as st
 import base64
 
-# --- FUNÇÃO: ESTILO BLINDADO (ALTO CONTRASTE PARA CELULAR) ---
+# --- FUNÇÃO: ESTILO ESTÁVEL (COM MENU FUNCIONANDO E SEM RODAPÉ) ---
 def adicionar_fundo_local(imagem_arquivo):
     url_fundo_principal = "https://raw.githubusercontent.com/josiasminghin/projeto-biomedicina/main/fundo.jpg"
     
@@ -35,7 +35,7 @@ def adicionar_fundo_local(imagem_arquivo):
         border-right: 1px solid #d1d5db;
     }}
 
-    /* 3. TEXTOS LEGÍVEIS */
+    /* 3. TEXTOS */
     h1, h2, h3, h4, h5, h6, p, li, div, span, label {{
         color: #000000 !important;
     }}
@@ -51,57 +51,27 @@ def adicionar_fundo_local(imagem_arquivo):
         }}
     }}
 
-    /* 5. LIMPEZA GERAL */
+    /* 5. LIMPEZA DO RODAPÉ E BOTÃO DEPLOY/MANAGE */
     footer {{visibility: hidden;}}
-    .stDeployButton {{display:none;}}
-
-    /* 6. CABEÇALHO E BOTÃO DE MENU (CORREÇÃO TEMA ESCURO) */
     
-    /* Mantemos a barra transparente, sem remover */
-    header[data-testid="stHeader"] {{
-        background-color: transparent !important;
-    }}
-
-    /* Escondemos a linha colorida e os ícones da direita */
-    [data-testid="stDecoration"], [data-testid="stToolbar"] {{
+    /* Esconde o botão 'Deploy' ou 'Manage App' lá de baixo */
+    .stDeployButton {{
         display: none !important;
     }}
-
-    /* --- AQUI ESTÁ A CORREÇÃO PARA O TEMA ESCURO --- */
     
-    /* Força o container do botão a aparecer */
-    [data-testid="stSidebarCollapsedControl"] {{
-        display: block !important;
-    }}
-    
-    /* Configura o BOTÃO para ser um quadrado BRANCO visível */
-    button[kind="header"] {{
-        display: block !important;
-        visibility: visible !important;
-        background-color: #FFFFFF !important; /* Fundo BRANCO SÓLIDO */
-        border: 1px solid #000000 !important; /* Borda PRETA fina para contraste */
-        border-radius: 8px !important;
-        width: 45px !important;
-        height: 45px !important;
-        opacity: 1 !important;
-        z-index: 9999 !important;
-        /* Sombra para garantir que se destaque em qualquer fundo */
-        box-shadow: 0px 2px 5px rgba(0,0,0,0.3) !important;
+    /* Esconde o widget de status que as vezes aparece no canto */
+    div[data-testid="stStatusWidget"] {{
+        visibility: hidden !important;
     }}
 
-    /* Força a SETINHA (ícone SVG) a ser PRETA sempre */
-    button[kind="header"] svg {{
-        fill: #000000 !important;
-        color: #000000 !important;
-    }}
-
-    /* 7. CONTORNO PARA INPUTS */
+    /* 6. CAIXAS DE SELEÇÃO COM CONTORNO */
     div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {{
         border: 1px solid #4b5563 !important;
         background-color: #ffffff !important;
         border-radius: 6px;
     }}
     
+    /* NOTA: Não mexemos no header (cabeçalho) para não quebrar o celular */
     </style>
     """,
     unsafe_allow_html=True
@@ -724,6 +694,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
