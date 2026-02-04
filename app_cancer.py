@@ -637,20 +637,23 @@ def mostrar_diagnostico_ia():
         
         st.markdown("---")
 
-        # --- GERAÇÃO DO LAUDO (NOVO) ---
-        from datetime import datetime
+        # --- GERAÇÃO DO LAUDO (COM FUSO HORÁRIO CORRIGIDO) ---
+        from datetime import datetime, timedelta
         
-        # 1. Pegar a data e hora atual
-        data_hora = datetime.now().strftime("%d/%m/%Y às %H:%M")
+        # 1. Ajuste de Fuso Horário (UTC para Brasília)
+        # O servidor está em UTC (+0), o Brasil está em UTC (-3)
+        fuso_brasil = timedelta(hours=3)
+        data_hora_atual = datetime.now() - fuso_brasil
+        data_formatada = data_hora_atual.strftime("%d/%m/%Y às %H:%M")
         
         # 2. Definir o texto do resultado
         resultado_texto = "MALIGNO" if prediction == 0 else "BENIGNO"
         
-        # 3. Criar o conteúdo do arquivo de texto (Formatado)
+        # 3. Criar o conteúdo do arquivo de texto
         laudo_texto = f"""
 🏥 SAD - BioOnco | Relatório de Análise Computacional
 =====================================================
-Data da Emissão: {data_hora}
+Data da Emissão: {data_formatada}
 Responsável Técnico: Josias Minghin (Acad. Biomedicina)
 
 🔬 PARÂMETROS DA AMOSTRA (MICROSCOPIA):
@@ -677,7 +680,7 @@ Não substitui o diagnóstico clínico ou histopatológico.
         st.download_button(
             label="📄 Baixar Laudo Completo",
             data=laudo_texto,
-            file_name=f"Laudo_BioOnco_{datetime.now().strftime('%Y%m%d_%H%M')}.txt",
+            file_name=f"Laudo_BioOnco_{data_hora_atual.strftime('%Y%m%d_%H%M')}.txt",
             mime="text/plain"
         )
 # --- CONTROLE DE NAVEGAÇÃO (COLE ISTO NO FINAL DO ARQUIVO) ---
@@ -694,6 +697,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
