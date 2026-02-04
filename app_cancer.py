@@ -289,8 +289,7 @@ def mostrar_guia_didatico():
                     st.image("Imagem4.jpg", caption="Ativação da Cascata PI3K", use_container_width=True)
                 with col_v2:
                     st.image("Imagem5.jpg", caption="Proliferação Celular Resultante", use_container_width=True)
-
-    # --- ABA 5: TRATAMENTOS E MECANISMOS ---
+   # --- ABA 5: TRATAMENTOS E MECANISMOS ---
     with aba5:
         st.header("💊 Tratamentos e Mecanismos de Ação")
         st.write("Da quimioterapia clássica à medicina de precisão.")
@@ -529,6 +528,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
