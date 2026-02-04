@@ -282,9 +282,9 @@ def mostrar_guia_didatico():
             # --- IMAGEM GERAL ---
             st.markdown("### 🖼️ Esquema da Via de Sinalização")
             try:
-                st.image("Imagem3.jpg", caption="Interação entre Via AKT e Ciclo Celular", use_column_width=True)
+                st.image("imagem3.jpg", caption="Interação entre Via AKT e Ciclo Celular", use_column_width=True)
             except:
-                st.warning("⚠️ Faltando arquivo: Imagem3.jpg")
+                st.warning("⚠️ Faltando arquivo: imagem3.jpg")
             
             # --- DETALHES E NOVA EXPLICAÇÃO ---
             with st.expander("🔎 Detalhes da Hiperativação e Consequências", expanded=True):
@@ -294,17 +294,17 @@ def mostrar_guia_didatico():
                 with col_v1:
                     st.markdown("**1. Ativação da Cascata**")
                     try:
-                        st.image("Imagem4.jpg", use_column_width=True)
+                        st.image("imagem4.jpg", use_column_width=True)
                     except:
-                        st.warning("⚠️ Faltando: Imagem4.jpg")
+                        st.warning("⚠️ Faltando: imagem4.jpg")
                         
                 with col_v2:
                     st.markdown("**2. Proliferação Resultante**")
                     try:
-                        st.image("Imagem5.jpg", use_column_width=True)
+                        st.image("imagem5.jpg", use_column_width=True)
                         st.caption("👀 **Obs:** As vias e sinais ilustrados em **roxo** representam a hiperativação.")
                     except:
-                        st.warning("⚠️ Faltando: Imagem5.jpg")
+                        st.warning("⚠️ Faltando: imagem5.jpg")
 
                 st.markdown("---")
                 
@@ -574,6 +574,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
