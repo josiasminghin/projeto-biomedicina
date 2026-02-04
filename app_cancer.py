@@ -13,7 +13,7 @@ st.set_page_config(
 import streamlit as st
 import base64
 
-# --- FUNÇÃO: ESTILO COMPLETO (VERSÃO NUCLEAR / FIXA) ---
+# --- FUNÇÃO: ESTILO COMPLETO (ESTRATÉGIA CIRÚRGICA) ---
 def adicionar_fundo_local(imagem_arquivo):
     url_fundo_principal = "https://raw.githubusercontent.com/josiasminghin/projeto-biomedicina/main/fundo.jpg"
     
@@ -29,23 +29,21 @@ def adicionar_fundo_local(imagem_arquivo):
         background-blend-mode: overlay;
     }}
 
-    /* 2. CONFIGURAÇÃO DA BARRA LATERAL (MENU) */
+    /* 2. MENU LATERAL */
     section[data-testid="stSidebar"] {{
         background-color: #f0f4f8 !important;
         border-right: 1px solid #d1d5db;
     }}
 
-    /* 3. CORREÇÃO DE TEXTO GERAL */
+    /* 3. TEXTOS */
     h1, h2, h3, h4, h5, h6, p, li, div, span, label {{
         color: #000000 !important;
     }}
-    
-    /* 4. AJUSTE PARA TEXTO DA BARRA LATERAL */
     [data-testid="stSidebar"] * {{
         color: #1a1a1a !important;
     }}
 
-    /* 5. AJUSTE PARA CELULAR (Fundo) */
+    /* 4. CELULAR */
     @media only screen and (max-width: 600px) {{
         .stApp {{
             background-attachment: scroll;
@@ -53,44 +51,47 @@ def adicionar_fundo_local(imagem_arquivo):
         }}
     }}
 
-    /* 6. LIMPEZA VISUAL (Rodapé e Botão Deploy) */
+    /* 5. LIMPEZA GERAL */
     footer {{visibility: hidden;}}
     .stDeployButton {{display:none;}}
 
-    /* 7. CABEÇALHO E BOTÃO DE MENU (A "OPÇÃO NUCLEAR") */
+    /* 6. CABEÇALHO (AQUI ESTÁ A CORREÇÃO) */
     
-    /* Primeiro: Sumimos com a barra original completa */
+    /* A barra em si fica visível, mas transparente. 
+       NÃO usamos 'display: none' aqui para não matar o botão do menu. */
     header[data-testid="stHeader"] {{
-        background: transparent !important;
-        pointer-events: none; /* Deixa você clicar "através" da barra vazia */
+        background-color: transparent !important;
     }}
-    
-    /* Escondemos a decoração colorida e a barra de ferramentas (direita) */
-    [data-testid="stDecoration"], [data-testid="stToolbar"] {{
+
+    /* Esconde a linha colorida do topo */
+    [data-testid="stDecoration"] {{
         display: none !important;
     }}
 
-    /* AGORA A MÁGICA: Forçamos o botão a flutuar na tela */
-    button[kind="header"] {{
-        pointer-events: auto !important; /* Reativa o clique no botão */
-        visibility: visible !important;
-        display: block !important;
-        
-        /* Arranca o botão do lugar e cola na tela */
-        position: fixed !important; 
-        top: 15px !important;
-        left: 15px !important;
-        z-index: 999999 !important; /* Garante que fique EM CIMA de tudo */
-        
-        /* Estilo para garantir visibilidade */
-        color: #000000 !important; /* Ícone Preto */
-        background-color: rgba(255, 255, 255, 0.8) !important; /* Fundo branquinho */
-        border-radius: 8px !important; /* Cantos arredondados */
-        padding: 4px !important;
-        box-shadow: 0px 2px 5px rgba(0,0,0,0.2) !important; /* Sombra para destacar */
+    /* Esconde SOMENTE os ícones da direita (Github, 3 pontinhos) */
+    [data-testid="stToolbar"] {{
+        display: none !important;
     }}
 
-    /* 8. CONTORNO PARA CAIXAS DE SELEÇÃO */
+    /* ESTILIZAÇÃO DO BOTÃO DE MENU (Para garantir que ele apareça) */
+    /* Alvo 1: O container do botão */
+    [data-testid="stSidebarCollapsedControl"] {{
+        display: block !important;
+    }}
+    
+    /* Alvo 2: O botão em si */
+    button[kind="header"] {{
+        display: block !important;
+        visibility: visible !important;
+        color: #000000 !important; /* Ícone Preto */
+        background-color: rgba(240, 242, 246, 0.8) !important; /* Fundo cinza clarinho */
+        border: 1px solid #ccc !important; /* Borda para destacar */
+        border-radius: 8px !important;
+        width: 40px !important;
+        height: 40px !important;
+    }}
+
+    /* 7. CONTORNO PARA INPUTS */
     div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {{
         border: 1px solid #4b5563 !important;
         background-color: #ffffff !important;
@@ -719,6 +720,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
