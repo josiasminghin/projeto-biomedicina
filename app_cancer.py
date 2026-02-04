@@ -13,7 +13,7 @@ st.set_page_config(
 import streamlit as st
 import base64
 
-# --- FUNÇÃO: ESTILO COMPLETO (VERSÃO INFALÍVEL PARA CELULAR) ---
+# --- FUNÇÃO: ESTILO COMPLETO (VERSÃO NUCLEAR / FIXA) ---
 def adicionar_fundo_local(imagem_arquivo):
     url_fundo_principal = "https://raw.githubusercontent.com/josiasminghin/projeto-biomedicina/main/fundo.jpg"
     
@@ -57,33 +57,37 @@ def adicionar_fundo_local(imagem_arquivo):
     footer {{visibility: hidden;}}
     .stDeployButton {{display:none;}}
 
-    /* 7. CABEÇALHO (ESTRATÉGIA: TRANSPARÊNCIA, NÃO REMOÇÃO) */
+    /* 7. CABEÇALHO E BOTÃO DE MENU (A "OPÇÃO NUCLEAR") */
     
-    /* A barra superior continua existindo, mas fica invisível (transparente) */
+    /* Primeiro: Sumimos com a barra original completa */
     header[data-testid="stHeader"] {{
         background: transparent !important;
-        z-index: 1 !important; /* Garante que fique acima do fundo */
-    }}
-
-    /* Removemos a linha colorida do topo (decoração) */
-    [data-testid="stDecoration"] {{
-        display: none !important;
-    }}
-
-    /* Escondemos APENAS os ícones da direita (Github, Menu, Deploy) */
-    [data-testid="stToolbar"] {{
-        display: none !important;
+        pointer-events: none; /* Deixa você clicar "através" da barra vazia */
     }}
     
-    /* Garantimos que o botão do menu (esquerda) tenha cor preta forte */
-    /* E forçamos ele a ser visível */
+    /* Escondemos a decoração colorida e a barra de ferramentas (direita) */
+    [data-testid="stDecoration"], [data-testid="stToolbar"] {{
+        display: none !important;
+    }}
+
+    /* AGORA A MÁGICA: Forçamos o botão a flutuar na tela */
     button[kind="header"] {{
-        color: #000000 !important; /* Cor do ícone */
-        background-color: transparent !important;
-    }}
-    
-    [data-testid="baseButton-header"] {{
-        color: #000000 !important;
+        pointer-events: auto !important; /* Reativa o clique no botão */
+        visibility: visible !important;
+        display: block !important;
+        
+        /* Arranca o botão do lugar e cola na tela */
+        position: fixed !important; 
+        top: 15px !important;
+        left: 15px !important;
+        z-index: 999999 !important; /* Garante que fique EM CIMA de tudo */
+        
+        /* Estilo para garantir visibilidade */
+        color: #000000 !important; /* Ícone Preto */
+        background-color: rgba(255, 255, 255, 0.8) !important; /* Fundo branquinho */
+        border-radius: 8px !important; /* Cantos arredondados */
+        padding: 4px !important;
+        box-shadow: 0px 2px 5px rgba(0,0,0,0.2) !important; /* Sombra para destacar */
     }}
 
     /* 8. CONTORNO PARA CAIXAS DE SELEÇÃO */
@@ -715,6 +719,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
