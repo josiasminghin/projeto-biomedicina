@@ -151,7 +151,7 @@ def mostrar_guia_didatico():
                 except: st.warning("⚠️ Adicione a foto 'inflamatorio.jpg' no GitHub.")
             
             else:
-                try: st.image("normal.jpg", caption="Microscopia: Tecido Normal", use_column_width=True)
+                try: st.image("Benigno.jpg", caption="Microscopia: Tecido Normal", use_container_width=True)
                 except: st.warning("⚠️ Adicione a foto 'normal.jpg' no GitHub.")
 
         with col_desc:
@@ -516,6 +516,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
