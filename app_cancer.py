@@ -13,7 +13,7 @@ st.set_page_config(
 import streamlit as st
 import base64
 
-# --- FUNÇÃO: ESTILO COMPLETO (ESTRATÉGIA CIRÚRGICA) ---
+# --- FUNÇÃO: ESTILO SEGURO (FUNDO E MENU FUNCIONAIS) ---
 def adicionar_fundo_local(imagem_arquivo):
     url_fundo_principal = "https://raw.githubusercontent.com/josiasminghin/projeto-biomedicina/main/fundo.jpg"
     
@@ -35,7 +35,7 @@ def adicionar_fundo_local(imagem_arquivo):
         border-right: 1px solid #d1d5db;
     }}
 
-    /* 3. TEXTOS */
+    /* 3. TEXTOS LEGÍVEIS */
     h1, h2, h3, h4, h5, h6, p, li, div, span, label {{
         color: #000000 !important;
     }}
@@ -43,7 +43,7 @@ def adicionar_fundo_local(imagem_arquivo):
         color: #1a1a1a !important;
     }}
 
-    /* 4. CELULAR */
+    /* 4. AJUSTE PARA CELULAR */
     @media only screen and (max-width: 600px) {{
         .stApp {{
             background-attachment: scroll;
@@ -51,53 +51,18 @@ def adicionar_fundo_local(imagem_arquivo):
         }}
     }}
 
-    /* 5. LIMPEZA GERAL */
+    /* 5. LIMPEZA DO RODAPÉ (Isso é seguro esconder) */
     footer {{visibility: hidden;}}
     .stDeployButton {{display:none;}}
 
-    /* 6. CABEÇALHO (AQUI ESTÁ A CORREÇÃO) */
-    
-    /* A barra em si fica visível, mas transparente. 
-       NÃO usamos 'display: none' aqui para não matar o botão do menu. */
-    header[data-testid="stHeader"] {{
-        background-color: transparent !important;
-    }}
-
-    /* Esconde a linha colorida do topo */
-    [data-testid="stDecoration"] {{
-        display: none !important;
-    }}
-
-    /* Esconde SOMENTE os ícones da direita (Github, 3 pontinhos) */
-    [data-testid="stToolbar"] {{
-        display: none !important;
-    }}
-
-    /* ESTILIZAÇÃO DO BOTÃO DE MENU (Para garantir que ele apareça) */
-    /* Alvo 1: O container do botão */
-    [data-testid="stSidebarCollapsedControl"] {{
-        display: block !important;
-    }}
-    
-    /* Alvo 2: O botão em si */
-    button[kind="header"] {{
-        display: block !important;
-        visibility: visible !important;
-        color: #000000 !important; /* Ícone Preto */
-        background-color: rgba(240, 242, 246, 0.8) !important; /* Fundo cinza clarinho */
-        border: 1px solid #ccc !important; /* Borda para destacar */
-        border-radius: 8px !important;
-        width: 40px !important;
-        height: 40px !important;
-    }}
-
-    /* 7. CONTORNO PARA INPUTS */
+    /* 6. CAIXAS DE SELEÇÃO COM CONTORNO */
     div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {{
         border: 1px solid #4b5563 !important;
         background-color: #ffffff !important;
         border-radius: 6px;
     }}
     
+    /* OBS: Não estamos escondendo o header. O menu vai aparecer nativamente. */
     </style>
     """,
     unsafe_allow_html=True
@@ -720,6 +685,7 @@ else:
 # Rodapé
 st.sidebar.markdown("---")
 st.sidebar.info("Desenvolvido por Josias Minghin\nBiomedicina 1º Ano")
+
 
 
 
